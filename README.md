@@ -194,4 +194,4 @@ To configure CI for your project, run the ci-cd sub-generator (`jhipster ci-cd`)
 [jasmine]: http://jasmine.github.io/2.0/introduction.html
 [protractor]: https://angular.github.io/protractor/
 [leaflet]: http://leafletjs.com/
-[definitelytyped]: http://definitelytyped.org/
+[definitelytyped]: http://definitelytyped.org/ '# proyectocomponentesv1'
