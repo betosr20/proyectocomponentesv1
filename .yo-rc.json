@@ -1,0 +1,37 @@
+{
+  "generator-jhipster": {
+    "promptValues": {
+      "packageName": "com.cenfotec.proyectov1"
+    },
+    "jhipsterVersion": "6.1.2",
+    "applicationType": "monolith",
+    "baseName": "ProyectoV1",
+    "packageName": "com.cenfotec.proyectov1",
+    "packageFolder": "com/cenfotec/proyectov1",
+    "serverPort": "8080",
+    "authenticationType": "jwt",
+    "cacheProvider": "ehcache",
+    "enableHibernateCache": true,
+    "websocket": false,
+    "databaseType": "sql",
+    "devDatabaseType": "h2Disk",
+    "prodDatabaseType": "postgresql",
+    "searchEngine": false,
+    "messageBroker": false,
+    "serviceDiscoveryType": false,
+    "buildTool": "maven",
+    "enableSwaggerCodegen": false,
+    "jwtSecretKey": "MjE0MmM4YTFkZDBjZjY2Y2RlYzUwNDNhNjIwMjgzZWJmZjU0Njg0MTkxZjgxZmMwNmZhOWI5ZjI0NjNhMmMxMDAwMDM3NzAwMmUyMDVmM2Q0OTgwZDFmNTY0MWI2MDU4ZjBiNWMzZDQxNGM0NDA1N2M2ZDFlMDdhZDc2YTYyNmU=",
+    "useSass": true,
+    "clientPackageManager": "npm",
+    "clientFramework": "angularX",
+    "clientTheme": "none",
+    "clientThemeVariant": "",
+    "testFrameworks": [],
+    "jhiPrefix": "jhi",
+    "entitySuffix": "",
+    "dtoSuffix": "DTO",
+    "otherModules": [],
+    "enableTranslation": false
+  }
+}
