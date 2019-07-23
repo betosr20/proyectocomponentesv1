@@ -1,0 +1,40 @@
+
+
+entity UserExtra {
+id Long,
+nickname String,
+name String,
+lastName String
+status Integer
+}
+
+entity Post {
+id Long,
+tittle String,
+text String,
+status String,
+timestamp String
+}
+
+entity Comment {
+id Long,
+comment String,
+timestamp String
+}
+
+entity Tag {
+id Long,
+name String
+}
+
+relationship OneToMany {
+UserExtra {post} to Post
+}
+
+relationship OneToMany {
+Post {comment} to Comment
+}
+
+relationship OneToMany {
+Post {tag} to Tag
+}

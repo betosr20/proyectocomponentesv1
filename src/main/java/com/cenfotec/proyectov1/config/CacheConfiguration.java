@@ -43,6 +43,13 @@ public class CacheConfiguration {
             createCache(cm, com.cenfotec.proyectov1.domain.User.class.getName());
             createCache(cm, com.cenfotec.proyectov1.domain.Authority.class.getName());
             createCache(cm, com.cenfotec.proyectov1.domain.User.class.getName() + ".authorities");
+            createCache(cm, com.cenfotec.proyectov1.domain.UserExtra.class.getName());
+            createCache(cm, com.cenfotec.proyectov1.domain.UserExtra.class.getName() + ".posts");
+            createCache(cm, com.cenfotec.proyectov1.domain.Post.class.getName());
+            createCache(cm, com.cenfotec.proyectov1.domain.Post.class.getName() + ".comments");
+            createCache(cm, com.cenfotec.proyectov1.domain.Post.class.getName() + ".tags");
+            createCache(cm, com.cenfotec.proyectov1.domain.Comment.class.getName());
+            createCache(cm, com.cenfotec.proyectov1.domain.Tag.class.getName());
             // jhipster-needle-ehcache-add-entry
         };
     }

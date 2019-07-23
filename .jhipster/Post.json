@@ -1,0 +1,50 @@
+{
+    "name": "Post",
+    "fields": [
+        {
+            "fieldName": "tittle",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "text",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "status",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "timestamp",
+            "fieldType": "String"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipName": "userExtra",
+            "otherEntityName": "userExtra",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "id"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "otherEntityName": "comment",
+            "otherEntityRelationshipName": "post",
+            "relationshipName": "comment"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "otherEntityName": "tag",
+            "otherEntityRelationshipName": "post",
+            "relationshipName": "tag"
+        }
+    ],
+    "changelogDate": "20190723072041",
+    "entityTableName": "post",
+    "dto": "no",
+    "pagination": "no",
+    "service": "no",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*"
+}
