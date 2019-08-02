@@ -16,9 +16,8 @@ export class UserExtraUpdateComponent implements OnInit {
   editForm = this.fb.group({
     id: [],
     nickname: [],
-    name: [],
-    lastName: [],
-    status: []
+    status: [],
+    userId: []
   });
 
   constructor(protected userExtraService: UserExtraService, protected activatedRoute: ActivatedRoute, private fb: FormBuilder) {}
@@ -34,9 +33,8 @@ export class UserExtraUpdateComponent implements OnInit {
     this.editForm.patchValue({
       id: userExtra.id,
       nickname: userExtra.nickname,
-      name: userExtra.name,
-      lastName: userExtra.lastName,
-      status: userExtra.status
+      status: userExtra.status,
+      userId: userExtra.userId
     });
   }
 
@@ -59,9 +57,8 @@ export class UserExtraUpdateComponent implements OnInit {
       ...new UserExtra(),
       id: this.editForm.get(['id']).value,
       nickname: this.editForm.get(['nickname']).value,
-      name: this.editForm.get(['name']).value,
-      lastName: this.editForm.get(['lastName']).value,
-      status: this.editForm.get(['status']).value
+      status: this.editForm.get(['status']).value,
+      userId: this.editForm.get(['userId']).value
     };
   }
 

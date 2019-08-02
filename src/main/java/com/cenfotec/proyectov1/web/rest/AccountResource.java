@@ -2,6 +2,8 @@ package com.cenfotec.proyectov1.web.rest;
 
 
 import com.cenfotec.proyectov1.domain.User;
+import com.cenfotec.proyectov1.domain.UserExtra;
+import com.cenfotec.proyectov1.repository.UserExtraRepository;
 import com.cenfotec.proyectov1.repository.UserRepository;
 import com.cenfotec.proyectov1.security.SecurityUtils;
 import com.cenfotec.proyectov1.service.MailService;
@@ -11,6 +13,7 @@ import com.cenfotec.proyectov1.service.dto.UserDTO;
 import com.cenfotec.proyectov1.web.rest.errors.*;
 import com.cenfotec.proyectov1.web.rest.vm.KeyAndPasswordVM;
 import com.cenfotec.proyectov1.web.rest.vm.ManagedUserVM;
+import com.cenfotec.proyectov1.repository.UserExtraRepository;
 
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -43,11 +46,14 @@ public class AccountResource {
 
     private final MailService mailService;
 
-    public AccountResource(UserRepository userRepository, UserService userService, MailService mailService) {
+    private final UserExtraRepository userExtraRepository;
+
+    public AccountResource(UserRepository userRepository, UserService userService, MailService mailService, UserExtraRepository userExtraRepository) {
 
         this.userRepository = userRepository;
         this.userService = userService;
         this.mailService = mailService;
+        this.userExtraRepository = userExtraRepository;
     }
 
     /**
@@ -66,6 +72,10 @@ public class AccountResource {
         }
         User user = userService.registerUser(managedUserVM, managedUserVM.getPassword());
         mailService.sendActivationEmail(user);
+        UserExtra userNew =  new UserExtra();
+        userNew.setNickname(user.getLogin());
+        userNew.setUserId(user.getId());
+        userExtraRepository.save(userNew);
     }
 
     /**

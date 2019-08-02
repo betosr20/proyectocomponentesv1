@@ -23,7 +23,7 @@ describe('Service Tests', () => {
       service = injector.get(UserExtraService);
       httpMock = injector.get(HttpTestingController);
 
-      elemDefault = new UserExtra(0, 'AAAAAAA', 'AAAAAAA', 'AAAAAAA', 0);
+      elemDefault = new UserExtra(0, 'AAAAAAA', 0, 0);
     });
 
     describe('Service methods', () => {
@@ -60,9 +60,8 @@ describe('Service Tests', () => {
         const returnedFromService = Object.assign(
           {
             nickname: 'BBBBBB',
-            name: 'BBBBBB',
-            lastName: 'BBBBBB',
-            status: 1
+            status: 1,
+            userId: 1
           },
           elemDefault
         );
@@ -81,9 +80,8 @@ describe('Service Tests', () => {
         const returnedFromService = Object.assign(
           {
             nickname: 'BBBBBB',
-            name: 'BBBBBB',
-            lastName: 'BBBBBB',
-            status: 1
+            status: 1,
+            userId: 1
           },
           elemDefault
         );

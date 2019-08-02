@@ -19,9 +19,8 @@
             <tr>
             <th><span>ID</span></th>
             <th><span>Nickname</span></th>
-            <th><span>Name</span></th>
-            <th><span>Last Name</span></th>
             <th><span>Status</span></th>
+            <th><span>User Id</span></th>
             <th></th>
             </tr>
             </thead>
@@ -29,9 +28,8 @@
             <tr *ngFor="let userExtra of userExtras ;trackBy: trackId">
                 <td><a [routerLink]="['/user-extra', userExtra.id, 'view' ]">{{userExtra.id}}</a></td>
                 <td>{{userExtra.nickname}}</td>
-                <td>{{userExtra.name}}</td>
-                <td>{{userExtra.lastName}}</td>
                 <td>{{userExtra.status}}</td>
+                <td>{{userExtra.userId}}</td>
                 <td class="text-right">
                     <div class="btn-group">
                         <button type="submit"

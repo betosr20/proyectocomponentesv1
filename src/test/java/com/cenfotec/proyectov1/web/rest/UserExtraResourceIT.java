@@ -36,14 +36,11 @@ public class UserExtraResourceIT {
     private static final String DEFAULT_NICKNAME = "AAAAAAAAAA";
     private static final String UPDATED_NICKNAME = "BBBBBBBBBB";
 
-    private static final String DEFAULT_NAME = "AAAAAAAAAA";
-    private static final String UPDATED_NAME = "BBBBBBBBBB";
-
-    private static final String DEFAULT_LAST_NAME = "AAAAAAAAAA";
-    private static final String UPDATED_LAST_NAME = "BBBBBBBBBB";
-
     private static final Integer DEFAULT_STATUS = 1;
     private static final Integer UPDATED_STATUS = 2;
+
+    private static final Long DEFAULT_USER_ID = 1L;
+    private static final Long UPDATED_USER_ID = 2L;
 
     @Autowired
     private UserExtraRepository userExtraRepository;
@@ -88,9 +85,8 @@ public class UserExtraResourceIT {
     public static UserExtra createEntity(EntityManager em) {
         UserExtra userExtra = new UserExtra()
             .nickname(DEFAULT_NICKNAME)
-            .name(DEFAULT_NAME)
-            .lastName(DEFAULT_LAST_NAME)
-            .status(DEFAULT_STATUS);
+            .status(DEFAULT_STATUS)
+            .userId(DEFAULT_USER_ID);
         return userExtra;
     }
     /**
@@ -102,9 +98,8 @@ public class UserExtraResourceIT {
     public static UserExtra createUpdatedEntity(EntityManager em) {
         UserExtra userExtra = new UserExtra()
             .nickname(UPDATED_NICKNAME)
-            .name(UPDATED_NAME)
-            .lastName(UPDATED_LAST_NAME)
-            .status(UPDATED_STATUS);
+            .status(UPDATED_STATUS)
+            .userId(UPDATED_USER_ID);
         return userExtra;
     }
 
@@ -129,9 +124,8 @@ public class UserExtraResourceIT {
         assertThat(userExtraList).hasSize(databaseSizeBeforeCreate + 1);
         UserExtra testUserExtra = userExtraList.get(userExtraList.size() - 1);
         assertThat(testUserExtra.getNickname()).isEqualTo(DEFAULT_NICKNAME);
-        assertThat(testUserExtra.getName()).isEqualTo(DEFAULT_NAME);
-        assertThat(testUserExtra.getLastName()).isEqualTo(DEFAULT_LAST_NAME);
         assertThat(testUserExtra.getStatus()).isEqualTo(DEFAULT_STATUS);
+        assertThat(testUserExtra.getUserId()).isEqualTo(DEFAULT_USER_ID);
     }
 
     @Test
@@ -166,9 +160,8 @@ public class UserExtraResourceIT {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(userExtra.getId().intValue())))
             .andExpect(jsonPath("$.[*].nickname").value(hasItem(DEFAULT_NICKNAME.toString())))
-            .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME.toString())))
-            .andExpect(jsonPath("$.[*].lastName").value(hasItem(DEFAULT_LAST_NAME.toString())))
-            .andExpect(jsonPath("$.[*].status").value(hasItem(DEFAULT_STATUS)));
+            .andExpect(jsonPath("$.[*].status").value(hasItem(DEFAULT_STATUS)))
+            .andExpect(jsonPath("$.[*].userId").value(hasItem(DEFAULT_USER_ID.intValue())));
     }
     
     @Test
@@ -183,9 +176,8 @@ public class UserExtraResourceIT {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.id").value(userExtra.getId().intValue()))
             .andExpect(jsonPath("$.nickname").value(DEFAULT_NICKNAME.toString()))
-            .andExpect(jsonPath("$.name").value(DEFAULT_NAME.toString()))
-            .andExpect(jsonPath("$.lastName").value(DEFAULT_LAST_NAME.toString()))
-            .andExpect(jsonPath("$.status").value(DEFAULT_STATUS));
+            .andExpect(jsonPath("$.status").value(DEFAULT_STATUS))
+            .andExpect(jsonPath("$.userId").value(DEFAULT_USER_ID.intValue()));
     }
 
     @Test
@@ -210,9 +202,8 @@ public class UserExtraResourceIT {
         em.detach(updatedUserExtra);
         updatedUserExtra
             .nickname(UPDATED_NICKNAME)
-            .name(UPDATED_NAME)
-            .lastName(UPDATED_LAST_NAME)
-            .status(UPDATED_STATUS);
+            .status(UPDATED_STATUS)
+            .userId(UPDATED_USER_ID);
 
         restUserExtraMockMvc.perform(put("/api/user-extras")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -224,9 +215,8 @@ public class UserExtraResourceIT {
         assertThat(userExtraList).hasSize(databaseSizeBeforeUpdate);
         UserExtra testUserExtra = userExtraList.get(userExtraList.size() - 1);
         assertThat(testUserExtra.getNickname()).isEqualTo(UPDATED_NICKNAME);
-        assertThat(testUserExtra.getName()).isEqualTo(UPDATED_NAME);
-        assertThat(testUserExtra.getLastName()).isEqualTo(UPDATED_LAST_NAME);
         assertThat(testUserExtra.getStatus()).isEqualTo(UPDATED_STATUS);
+        assertThat(testUserExtra.getUserId()).isEqualTo(UPDATED_USER_ID);
     }
 
     @Test

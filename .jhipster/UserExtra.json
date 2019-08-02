@@ -1,23 +1,6 @@
 {
-    "name": "UserExtra",
-    "fields": [
-        {
-            "fieldName": "nickname",
-            "fieldType": "String"
-        },
-        {
-            "fieldName": "name",
-            "fieldType": "String"
-        },
-        {
-            "fieldName": "lastName",
-            "fieldType": "String"
-        },
-        {
-            "fieldName": "status",
-            "fieldType": "Integer"
-        }
-    ],
+    "fluentMethods": true,
+    "clientRootFolder": "",
     "relationships": [
         {
             "relationshipType": "one-to-many",
@@ -26,13 +9,26 @@
             "relationshipName": "post"
         }
     ],
+    "fields": [
+        {
+            "fieldName": "nickname",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "status",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "userId",
+            "fieldType": "Long"
+        }
+    ],
     "changelogDate": "20190723072040",
-    "entityTableName": "user_extra",
     "dto": "no",
-    "pagination": "no",
+    "searchEngine": false,
     "service": "no",
+    "entityTableName": "user_extra",
+    "databaseType": "sql",
     "jpaMetamodelFiltering": false,
-    "fluentMethods": true,
-    "clientRootFolder": "",
-    "applications": "*"
+    "pagination": "no"
 }

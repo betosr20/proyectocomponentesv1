@@ -27,6 +27,11 @@ export class UserExtraService {
     return this.http.get<IUserExtra>(`${this.resourceUrl}/${id}`, { observe: 'response' });
   }
 
+  findByUserId(id: number): Observable<EntityResponseType> {
+    const customURL = SERVER_API_URL + 'api/user-extras-byUserId';
+    return this.http.get<IUserExtra>(`${customURL}/${id}`, { observe: 'response' });
+  }
+
   query(req?: any): Observable<EntityArrayResponseType> {
     const options = createRequestOption(req);
     return this.http.get<IUserExtra[]>(this.resourceUrl, { params: options, observe: 'response' });

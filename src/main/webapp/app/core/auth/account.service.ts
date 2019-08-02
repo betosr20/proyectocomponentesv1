@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Observable, Subject } from 'rxjs';
-
+import { IUserExtra } from 'app/shared/model/user-extra.model';
 import { SERVER_API_URL } from 'app/app.constants';
 import { Account } from 'app/core/user/account.model';
 
@@ -10,6 +10,8 @@ export class AccountService {
   private userIdentity: any;
   private authenticated = false;
   private authenticationState = new Subject<any>();
+  public userExtra: IUserExtra;
+  public user: Account;
 
   constructor(private http: HttpClient) {}
 
@@ -104,5 +106,32 @@ export class AccountService {
 
   getImageUrl(): string {
     return this.isIdentityResolved() ? this.userIdentity.imageUrl : null;
+  }
+
+  //findByUserId(userId: number): Observable<any> {
+  //return this.http.get<IUserExtra>(`api/user-extras-byUserId/${userId}`, { observe: 'response' });
+  //}
+
+  getUserExtraAndUser() {
+    this.user = null;
+    this.userExtra = null;
+    this.fetch().subscribe(data => {
+      if (data) {
+        this.user = data.body;
+        // console.log(data.body.id);
+        //this.findByUserId(data.body.id).subscribe(user => {
+        // this.userExtra = user.body;
+        // this.commerceService.queryByCommerce(this.userExtra.id).subscribe(commerces => {
+        //     this.userExtra.commerces =  commerces.body;
+        //     console.log(this.userExtra);
+        // });
+        // console.log([this.user, this.userExtra]);
+        //});
+      }
+    });
+  }
+
+  refreshUser() {
+    this.getUserExtraAndUser();
   }
 }

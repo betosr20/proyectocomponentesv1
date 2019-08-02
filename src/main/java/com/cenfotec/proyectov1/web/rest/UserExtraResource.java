@@ -114,4 +114,11 @@ public class UserExtraResource {
         userExtraRepository.deleteById(id);
         return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, false, ENTITY_NAME, id.toString())).build();
     }
+
+    @GetMapping("/user-extras-byUserId/{userId}")
+    public ResponseEntity<UserExtra> getUserByUserId(@PathVariable Long userId) {
+        log.debug("REST request to get all UserExtras");
+        Optional<UserExtra> userExtra = userExtraRepository.findByUserId(userId);
+        return ResponseUtil.wrapOrNotFound(userExtra);
+    }
 }

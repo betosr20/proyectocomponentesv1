@@ -6,6 +6,8 @@ import { JhiEventManager } from 'ng-jhipster';
 
 import { LoginService } from 'app/core/login/login.service';
 import { StateStorageService } from 'app/core/auth/state-storage.service';
+import { IUserExtra } from '../model/user-extra.model';
+import { AccountService } from '../../core/auth/account.service';
 
 @Component({
   selector: 'jhi-login-modal',
@@ -20,6 +22,8 @@ export class JhiLoginModalComponent implements AfterViewInit {
     rememberMe: [true]
   });
 
+  private userExtra: IUserExtra;
+
   constructor(
     private eventManager: JhiEventManager,
     private loginService: LoginService,
@@ -28,7 +32,8 @@ export class JhiLoginModalComponent implements AfterViewInit {
     private renderer: Renderer,
     private router: Router,
     public activeModal: NgbActiveModal,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private accountService: AccountService
   ) {}
 
   ngAfterViewInit() {
@@ -52,6 +57,9 @@ export class JhiLoginModalComponent implements AfterViewInit {
         rememberMe: this.loginForm.get('rememberMe').value
       })
       .then(() => {
+        this.accountService.getUserExtraAndUser();
+        //console.log("sdafasdfasdfasdfasdfsafd");
+        //console.log(this.accountService.user.login);
         this.authenticationError = false;
         this.activeModal.dismiss('login success');
         if (this.router.url === '/register' || /^\/activate\//.test(this.router.url) || /^\/reset\//.test(this.router.url)) {

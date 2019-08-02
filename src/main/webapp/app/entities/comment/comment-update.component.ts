@@ -9,6 +9,9 @@ import { IComment, Comment } from 'app/shared/model/comment.model';
 import { CommentService } from './comment.service';
 import { IPost } from 'app/shared/model/post.model';
 import { PostService } from 'app/entities/post';
+import { AccountService } from '../../core/auth/account.service';
+import { UserExtraService } from '../user-extra/user-extra.service';
+import { IUserExtra } from '../../shared/model/user-extra.model';
 
 @Component({
   selector: 'jhi-comment-update',
@@ -31,7 +34,9 @@ export class CommentUpdateComponent implements OnInit {
     protected commentService: CommentService,
     protected postService: PostService,
     protected activatedRoute: ActivatedRoute,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private accountService: AccountService,
+    private UserExtraService: UserExtraService
   ) {}
 
   ngOnInit() {
@@ -58,7 +63,13 @@ export class CommentUpdateComponent implements OnInit {
   }
 
   previousState() {
-    window.history.back();
+    //window.history.back();
+    let userExtra: IUserExtra;
+    this.UserExtraService.findByUserId(this.accountService.user.id).subscribe(user => {
+      userExtra = user.body;
+      console.log(userExtra.id);
+      console.log(userExtra.nickname);
+    });
   }
 
   save() {
