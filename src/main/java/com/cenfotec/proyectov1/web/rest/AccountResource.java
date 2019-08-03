@@ -13,7 +13,6 @@ import com.cenfotec.proyectov1.service.dto.UserDTO;
 import com.cenfotec.proyectov1.web.rest.errors.*;
 import com.cenfotec.proyectov1.web.rest.vm.KeyAndPasswordVM;
 import com.cenfotec.proyectov1.web.rest.vm.ManagedUserVM;
-import com.cenfotec.proyectov1.repository.UserExtraRepository;
 
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;

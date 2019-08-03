@@ -159,17 +159,17 @@ public class Post implements Serializable {
         return this;
     }
 
-    public Post addTag(Tag tag) {
-        this.tags.add(tag);
-        tag.getPosts().add(this);
-        return this;
-    }
+    // public Post addTag(Tag tag) {
+    //    this.tags.add(tag);
+    //    tag.getPosts().add(this);
+    //    return this;
+    // }
 
-    public Post removeTag(Tag tag) {
-        this.tags.remove(tag);
-        tag.getPosts().remove(this);
-        return this;
-    }
+    // public Post removeTag(Tag tag) {
+    //     this.tags.remove(tag);
+    //     tag.getPosts().remove(this);
+    //     return this;
+    // }
 
     public void setTags(Set<Tag> tags) {
         this.tags = tags;
