@@ -1,10 +1,13 @@
 package com.cenfotec.proyectov1.domain;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * A Tag.
@@ -23,6 +26,11 @@ public class Tag implements Serializable {
 
     @Column(name = "name")
     private String name;
+
+    @ManyToMany(mappedBy = "tags")
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    @JsonIgnore
+    private Set<Post> posts = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -44,6 +52,31 @@ public class Tag implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Set<Post> getPosts() {
+        return posts;
+    }
+
+    public Tag posts(Set<Post> posts) {
+        this.posts = posts;
+        return this;
+    }
+
+    public Tag addPost(Post post) {
+        this.posts.add(post);
+        post.getTags().add(this);
+        return this;
+    }
+
+    public Tag removePost(Post post) {
+        this.posts.remove(post);
+        post.getTags().remove(this);
+        return this;
+    }
+
+    public void setPosts(Set<Post> posts) {
+        this.posts = posts;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 

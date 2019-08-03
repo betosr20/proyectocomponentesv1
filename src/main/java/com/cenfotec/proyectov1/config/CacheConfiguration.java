@@ -50,6 +50,7 @@ public class CacheConfiguration {
             createCache(cm, com.cenfotec.proyectov1.domain.Post.class.getName() + ".tags");
             createCache(cm, com.cenfotec.proyectov1.domain.Comment.class.getName());
             createCache(cm, com.cenfotec.proyectov1.domain.Tag.class.getName());
+            createCache(cm, com.cenfotec.proyectov1.domain.Tag.class.getName() + ".posts");
             // jhipster-needle-ehcache-add-entry
         };
     }
