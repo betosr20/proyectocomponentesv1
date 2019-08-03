@@ -19,7 +19,6 @@
             <tr>
             <th><span>ID</span></th>
             <th><span>Name</span></th>
-            <th><span>Post</span></th>
             <th></th>
             </tr>
             </thead>
@@ -27,11 +26,6 @@
             <tr *ngFor="let tag of tags ;trackBy: trackId">
                 <td><a [routerLink]="['/tag', tag.id, 'view' ]">{{tag.id}}</a></td>
                 <td>{{tag.name}}</td>
-                <td>
-                    <div *ngIf="tag.post">
-                        <a [routerLink]="['../post', tag.post?.id, 'view' ]" >{{tag.post?.id}}</a>
-                    </div>
-                </td>
                 <td class="text-right">
                     <div class="btn-group">
                         <button type="submit"

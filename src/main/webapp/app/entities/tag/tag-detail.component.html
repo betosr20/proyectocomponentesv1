@@ -9,12 +9,6 @@
                 <dd>
                     <span>{{tag.name}}</span>
                 </dd>
-                <dt><span>Post</span></dt>
-                <dd>
-                    <div *ngIf="tag.post">
-                        <a [routerLink]="['/post', tag.post?.id, 'view']">{{tag.post?.id}}</a>
-                    </div>
-                </dd>
             </dl>
 
             <button type="submit"

@@ -81,12 +81,13 @@ public class PostResource {
     /**
      * {@code GET  /posts} : get all the posts.
      *
+     * @param eagerload flag to eager load entities from relationships (This is applicable for many-to-many).
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of posts in body.
      */
     @GetMapping("/posts")
-    public List<Post> getAllPosts() {
+    public List<Post> getAllPosts(@RequestParam(required = false, defaultValue = "false") boolean eagerload) {
         log.debug("REST request to get all Posts");
-        return postRepository.findAll();
+        return postRepository.findAllWithEagerRelationships();
     }
 
     /**
@@ -98,7 +99,7 @@ public class PostResource {
     @GetMapping("/posts/{id}")
     public ResponseEntity<Post> getPost(@PathVariable Long id) {
         log.debug("REST request to get Post : {}", id);
-        Optional<Post> post = postRepository.findById(id);
+        Optional<Post> post = postRepository.findOneWithEagerRelationships(id);
         return ResponseUtil.wrapOrNotFound(post);
     }
 

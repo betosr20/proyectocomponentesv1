@@ -15,13 +15,6 @@
                            formControlName="name"/>
                 </div>
 
-                <div class="form-group">
-                    <label class="form-control-label" for="field_post">Post</label>
-                    <select class="form-control" id="field_post" name="post" formControlName="post">
-                        <option [ngValue]="null"></option>
-                        <option [ngValue]="postOption.id === editForm.get('post').value?.id ? editForm.get('post').value : postOption" *ngFor="let postOption of posts; trackBy: trackPostById">{{postOption.id}}</option>
-                    </select>
-                </div>
             </div>
             <div>
                 <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">

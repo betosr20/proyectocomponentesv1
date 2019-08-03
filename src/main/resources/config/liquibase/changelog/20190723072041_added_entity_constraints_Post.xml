@@ -14,5 +14,17 @@
                                  referencedColumnNames="id"
                                  referencedTableName="user_extra"/>
 
+        <addForeignKeyConstraint baseColumnNames="post_id"
+                                 baseTableName="post_tag"
+                                 constraintName="fk_post_tag_post_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="post"/>
+
+        <addForeignKeyConstraint baseColumnNames="tag_id"
+                                 baseTableName="post_tag"
+                                 constraintName="fk_post_tag_tag_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="tag"/>
+        
     </changeSet>
 </databaseChangeLog>

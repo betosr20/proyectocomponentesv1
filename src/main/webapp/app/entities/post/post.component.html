@@ -23,6 +23,7 @@
             <th><span>Status</span></th>
             <th><span>Timestamp</span></th>
             <th><span>User Extra</span></th>
+            <th><span>Tag</span></th>
             <th></th>
             </tr>
             </thead>
@@ -37,6 +38,11 @@
                     <div *ngIf="post.userExtra">
                         <a [routerLink]="['../user-extra', post.userExtra?.id, 'view' ]" >{{post.userExtra?.id}}</a>
                     </div>
+                </td>
+                <td>
+                    <span *ngFor="let tag of post.tags; let last = last">
+                            <a class="form-control-static" [routerLink]="['../tag', tag?.id, 'view' ]">{{tag.id}}</a>{{last ? '' : ', '}}
+                        </span>
                 </td>
                 <td class="text-right">
                     <div class="btn-group">

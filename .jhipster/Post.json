@@ -1,5 +1,29 @@
 {
-    "name": "Post",
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "relationships": [
+        {
+            "relationshipName": "userExtra",
+            "otherEntityName": "userExtra",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "id",
+            "otherEntityRelationshipName": "post"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "otherEntityName": "comment",
+            "otherEntityRelationshipName": "post",
+            "relationshipName": "comment"
+        },
+        {
+            "relationshipName": "tag",
+            "otherEntityName": "tag",
+            "relationshipType": "many-to-many",
+            "otherEntityField": "id",
+            "ownerSide": true,
+            "otherEntityRelationshipName": "post"
+        }
+    ],
     "fields": [
         {
             "fieldName": "tittle",
@@ -18,33 +42,12 @@
             "fieldType": "String"
         }
     ],
-    "relationships": [
-        {
-            "relationshipName": "userExtra",
-            "otherEntityName": "userExtra",
-            "relationshipType": "many-to-one",
-            "otherEntityField": "id"
-        },
-        {
-            "relationshipType": "one-to-many",
-            "otherEntityName": "comment",
-            "otherEntityRelationshipName": "post",
-            "relationshipName": "comment"
-        },
-        {
-            "relationshipType": "one-to-many",
-            "otherEntityName": "tag",
-            "otherEntityRelationshipName": "post",
-            "relationshipName": "tag"
-        }
-    ],
     "changelogDate": "20190723072041",
-    "entityTableName": "post",
     "dto": "no",
-    "pagination": "no",
+    "searchEngine": false,
     "service": "no",
+    "entityTableName": "post",
+    "databaseType": "sql",
     "jpaMetamodelFiltering": false,
-    "fluentMethods": true,
-    "clientRootFolder": "",
-    "applications": "*"
+    "pagination": "no"
 }

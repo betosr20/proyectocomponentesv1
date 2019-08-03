@@ -1,26 +1,19 @@
 {
-    "name": "Tag",
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "relationships": [],
     "fields": [
         {
             "fieldName": "name",
             "fieldType": "String"
         }
     ],
-    "relationships": [
-        {
-            "relationshipName": "post",
-            "otherEntityName": "post",
-            "relationshipType": "many-to-one",
-            "otherEntityField": "id"
-        }
-    ],
     "changelogDate": "20190723072043",
-    "entityTableName": "tag",
     "dto": "no",
-    "pagination": "no",
+    "searchEngine": false,
     "service": "no",
+    "entityTableName": "tag",
+    "databaseType": "sql",
     "jpaMetamodelFiltering": false,
-    "fluentMethods": true,
-    "clientRootFolder": "",
-    "applications": "*"
+    "pagination": "no"
 }

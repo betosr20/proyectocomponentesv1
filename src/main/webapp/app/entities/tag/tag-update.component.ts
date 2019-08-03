@@ -3,12 +3,8 @@ import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
-import { filter, map } from 'rxjs/operators';
-import { JhiAlertService } from 'ng-jhipster';
 import { ITag, Tag } from 'app/shared/model/tag.model';
 import { TagService } from './tag.service';
-import { IPost } from 'app/shared/model/post.model';
-import { PostService } from 'app/entities/post';
 
 @Component({
   selector: 'jhi-tag-update',
@@ -17,41 +13,24 @@ import { PostService } from 'app/entities/post';
 export class TagUpdateComponent implements OnInit {
   isSaving: boolean;
 
-  posts: IPost[];
-
   editForm = this.fb.group({
     id: [],
-    name: [],
-    post: []
+    name: []
   });
 
-  constructor(
-    protected jhiAlertService: JhiAlertService,
-    protected tagService: TagService,
-    protected postService: PostService,
-    protected activatedRoute: ActivatedRoute,
-    private fb: FormBuilder
-  ) {}
+  constructor(protected tagService: TagService, protected activatedRoute: ActivatedRoute, private fb: FormBuilder) {}
 
   ngOnInit() {
     this.isSaving = false;
     this.activatedRoute.data.subscribe(({ tag }) => {
       this.updateForm(tag);
     });
-    this.postService
-      .query()
-      .pipe(
-        filter((mayBeOk: HttpResponse<IPost[]>) => mayBeOk.ok),
-        map((response: HttpResponse<IPost[]>) => response.body)
-      )
-      .subscribe((res: IPost[]) => (this.posts = res), (res: HttpErrorResponse) => this.onError(res.message));
   }
 
   updateForm(tag: ITag) {
     this.editForm.patchValue({
       id: tag.id,
-      name: tag.name,
-      post: tag.post
+      name: tag.name
     });
   }
 
@@ -73,8 +52,7 @@ export class TagUpdateComponent implements OnInit {
     return {
       ...new Tag(),
       id: this.editForm.get(['id']).value,
-      name: this.editForm.get(['name']).value,
-      post: this.editForm.get(['post']).value
+      name: this.editForm.get(['name']).value
     };
   }
 
@@ -89,12 +67,5 @@ export class TagUpdateComponent implements OnInit {
 
   protected onSaveError() {
     this.isSaving = false;
-  }
-  protected onError(errorMessage: string) {
-    this.jhiAlertService.error(errorMessage, null, null);
-  }
-
-  trackPostById(index: number, item: IPost) {
-    return item.id;
   }
 }

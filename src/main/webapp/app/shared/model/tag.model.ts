@@ -1,11 +1,8 @@
-import { IPost } from 'app/shared/model/post.model';
-
 export interface ITag {
   id?: number;
   name?: string;
-  post?: IPost;
 }
 
 export class Tag implements ITag {
-  constructor(public id?: number, public name?: string, public post?: IPost) {}
+  constructor(public id?: number, public name?: string) {}
 }

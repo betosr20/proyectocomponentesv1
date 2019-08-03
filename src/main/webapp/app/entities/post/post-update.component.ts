@@ -9,7 +9,8 @@ import { IPost, Post } from 'app/shared/model/post.model';
 import { PostService } from './post.service';
 import { IUserExtra } from 'app/shared/model/user-extra.model';
 import { UserExtraService } from 'app/entities/user-extra';
-import { AccountService } from '../../core/auth/account.service';
+import { ITag } from 'app/shared/model/tag.model';
+import { TagService } from 'app/entities/tag';
 
 @Component({
   selector: 'jhi-post-update',
@@ -17,8 +18,10 @@ import { AccountService } from '../../core/auth/account.service';
 })
 export class PostUpdateComponent implements OnInit {
   isSaving: boolean;
-  userExtra: IUserExtra;
+
   userextras: IUserExtra[];
+
+  tags: ITag[];
 
   editForm = this.fb.group({
     id: [],
@@ -26,16 +29,17 @@ export class PostUpdateComponent implements OnInit {
     text: [],
     status: [],
     timestamp: [],
-    userExtra: []
+    userExtra: [],
+    tags: []
   });
 
   constructor(
     protected jhiAlertService: JhiAlertService,
     protected postService: PostService,
     protected userExtraService: UserExtraService,
+    protected tagService: TagService,
     protected activatedRoute: ActivatedRoute,
-    private fb: FormBuilder,
-    private accountService: AccountService
+    private fb: FormBuilder
   ) {}
 
   ngOnInit() {
@@ -50,11 +54,13 @@ export class PostUpdateComponent implements OnInit {
         map((response: HttpResponse<IUserExtra[]>) => response.body)
       )
       .subscribe((res: IUserExtra[]) => (this.userextras = res), (res: HttpErrorResponse) => this.onError(res.message));
-
-    //Cargando la informacion del usuario que esta en sesion
-    this.userExtraService.findByUserId(this.accountService.user.id).subscribe(user => {
-      this.userExtra = user.body;
-    });
+    this.tagService
+      .query()
+      .pipe(
+        filter((mayBeOk: HttpResponse<ITag[]>) => mayBeOk.ok),
+        map((response: HttpResponse<ITag[]>) => response.body)
+      )
+      .subscribe((res: ITag[]) => (this.tags = res), (res: HttpErrorResponse) => this.onError(res.message));
   }
 
   updateForm(post: IPost) {
@@ -64,7 +70,8 @@ export class PostUpdateComponent implements OnInit {
       text: post.text,
       status: post.status,
       timestamp: post.timestamp,
-      userExtra: post.userExtra
+      userExtra: post.userExtra,
+      tags: post.tags
     });
   }
 
@@ -90,7 +97,8 @@ export class PostUpdateComponent implements OnInit {
       text: this.editForm.get(['text']).value,
       status: this.editForm.get(['status']).value,
       timestamp: this.editForm.get(['timestamp']).value,
-      userExtra: this.userExtra
+      userExtra: this.editForm.get(['userExtra']).value,
+      tags: this.editForm.get(['tags']).value
     };
   }
 
@@ -112,5 +120,20 @@ export class PostUpdateComponent implements OnInit {
 
   trackUserExtraById(index: number, item: IUserExtra) {
     return item.id;
+  }
+
+  trackTagById(index: number, item: ITag) {
+    return item.id;
+  }
+
+  getSelected(selectedVals: Array<any>, option: any) {
+    if (selectedVals) {
+      for (let i = 0; i < selectedVals.length; i++) {
+        if (option.id === selectedVals[i].id) {
+          return selectedVals[i];
+        }
+      }
+    }
+    return option;
   }
 }

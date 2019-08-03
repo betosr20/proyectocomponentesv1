@@ -42,6 +42,17 @@
 
     <changeSet id="20190723072041-1-relations" author="jhipster">
 
+        <createTable tableName="post_tag">
+            <column name="tag_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="post_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addPrimaryKey columnNames="post_id, tag_id" tableName="post_tag"/>
+        
     </changeSet>
     <!-- jhipster-needle-liquibase-add-changeset - JHipster will add changesets here, do not remove-->
 

@@ -44,8 +44,11 @@ public class Post implements Serializable {
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<Comment> comments = new HashSet<>();
 
-    @OneToMany(mappedBy = "post")
+    @ManyToMany
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    @JoinTable(name = "post_tag",
+               joinColumns = @JoinColumn(name = "post_id", referencedColumnName = "id"),
+               inverseJoinColumns = @JoinColumn(name = "tag_id", referencedColumnName = "id"))
     private Set<Tag> tags = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
@@ -158,13 +161,13 @@ public class Post implements Serializable {
 
     public Post addTag(Tag tag) {
         this.tags.add(tag);
-        tag.setPost(this);
+        tag.getPosts().add(this);
         return this;
     }
 
     public Post removeTag(Tag tag) {
         this.tags.remove(tag);
-        tag.setPost(null);
+        tag.getPosts().remove(this);
         return this;
     }
 
