@@ -63,13 +63,13 @@ export class CommentUpdateComponent implements OnInit {
   }
 
   previousState() {
-    //window.history.back();
-    let userExtra: IUserExtra;
-    this.UserExtraService.findByUserId(this.accountService.user.id).subscribe(user => {
-      userExtra = user.body;
-      console.log(userExtra.id);
-      console.log(userExtra.nickname);
-    });
+    window.history.back();
+    // let userExtra: IUserExtra;
+    // this.UserExtraService.findByUserId(this.accountService.user.id).subscribe(user => {
+    //  userExtra = user.body;
+    //  console.log(userExtra.id);
+    //  console.log(userExtra.nickname);
+    //});
   }
 
   save() {

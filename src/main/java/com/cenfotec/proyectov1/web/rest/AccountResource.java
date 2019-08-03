@@ -75,6 +75,7 @@ public class AccountResource {
         UserExtra userNew =  new UserExtra();
         userNew.setNickname(user.getLogin());
         userNew.setUserId(user.getId());
+        userNew.setStatus(1);
         userExtraRepository.save(userNew);
     }
 

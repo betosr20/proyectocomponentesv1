@@ -9,6 +9,7 @@ import { IPost, Post } from 'app/shared/model/post.model';
 import { PostService } from './post.service';
 import { IUserExtra } from 'app/shared/model/user-extra.model';
 import { UserExtraService } from 'app/entities/user-extra';
+import { AccountService } from '../../core/auth/account.service';
 
 @Component({
   selector: 'jhi-post-update',
@@ -16,7 +17,7 @@ import { UserExtraService } from 'app/entities/user-extra';
 })
 export class PostUpdateComponent implements OnInit {
   isSaving: boolean;
-
+  userExtra: IUserExtra;
   userextras: IUserExtra[];
 
   editForm = this.fb.group({
@@ -33,7 +34,8 @@ export class PostUpdateComponent implements OnInit {
     protected postService: PostService,
     protected userExtraService: UserExtraService,
     protected activatedRoute: ActivatedRoute,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private accountService: AccountService
   ) {}
 
   ngOnInit() {
@@ -48,6 +50,11 @@ export class PostUpdateComponent implements OnInit {
         map((response: HttpResponse<IUserExtra[]>) => response.body)
       )
       .subscribe((res: IUserExtra[]) => (this.userextras = res), (res: HttpErrorResponse) => this.onError(res.message));
+
+    //Cargando la informacion del usuario que esta en sesion
+    this.userExtraService.findByUserId(this.accountService.user.id).subscribe(user => {
+      this.userExtra = user.body;
+    });
   }
 
   updateForm(post: IPost) {
@@ -83,7 +90,7 @@ export class PostUpdateComponent implements OnInit {
       text: this.editForm.get(['text']).value,
       status: this.editForm.get(['status']).value,
       timestamp: this.editForm.get(['timestamp']).value,
-      userExtra: this.editForm.get(['userExtra']).value
+      userExtra: this.userExtra
     };
   }
 
