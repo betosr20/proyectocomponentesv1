@@ -16,59 +16,49 @@
     <div class="table-responsive" *ngIf="posts?.length > 0">
         <table class="table table-striped">
             <thead>
-            <tr>
-            <th><span>ID</span></th>
-            <th><span>Tittle</span></th>
-            <th><span>Text</span></th>
-            <th><span>Status</span></th>
-            <th><span>Timestamp</span></th>
-            <th><span>User Extra</span></th>
-            <th><span>Tag</span></th>
-            <th></th>
-            </tr>
+                <tr>
+                    <th><span>ID</span></th>
+                    <th><span>Tittle</span></th>
+                    <th><span>Text</span></th>
+                    <th><span>Timestamp</span></th>
+                    <th><span>Usuario</span></th>
+                    <th><span>Tag</span></th>
+                    <th></th>
+                </tr>
             </thead>
             <tbody>
-            <tr *ngFor="let post of posts ;trackBy: trackId">
-                <td><a [routerLink]="['/post', post.id, 'view' ]">{{post.id}}</a></td>
-                <td>{{post.tittle}}</td>
-                <td>{{post.text}}</td>
-                <td>{{post.status}}</td>
-                <td>{{post.timestamp}}</td>
-                <td>
-                    <div *ngIf="post.userExtra">
-                        <a [routerLink]="['../user-extra', post.userExtra?.id, 'view' ]" >{{post.userExtra?.id}}</a>
-                    </div>
-                </td>
-                <td>
-                    <span *ngFor="let tag of post.tags; let last = last">
-                            <a class="form-control-static" [routerLink]="['../tag', tag?.id, 'view' ]">{{tag.id}}</a>{{last ? '' : ', '}}
+                <tr *ngFor="let post of posts ;trackBy: trackId">
+                    <td><a [routerLink]="['/post', post.id, 'view' ]">{{post.id}}</a></td>
+                    <td>{{post.tittle}}</td>
+                    <td>{{post.text}}</td>
+                    <td>{{post.timestamp}}</td>
+                    <td>
+                        <div *ngIf="post.userExtra">
+                            <a [routerLink]="['../user-extra', post.userExtra?.id, 'view' ]">{{post.userExtra?.nickname}}</a>
+                        </div>
+                    </td>
+                    <td>
+                        <span *ngFor="let tag of post.tags; let last = last">
+                            <a class="form-control-static" [routerLink]="['../tag', tag?.id, 'view' ]">{{tag.name}}</a>{{last ? '' : ', '}}
                         </span>
-                </td>
-                <td class="text-right">
-                    <div class="btn-group">
-                        <button type="submit"
-                                [routerLink]="['/post', post.id, 'view' ]"
-                                class="btn btn-info btn-sm">
+                    </td>
+                    <td class="text-right">
+                        <div class="btn-group">
+                            <button type="submit" [routerLink]="['/post', post.id, 'view' ]" class="btn btn-info btn-sm">
                             <fa-icon [icon]="'eye'"></fa-icon>
                             <span class="d-none d-md-inline">View</span>
                         </button>
-                        <button type="submit"
-                                [routerLink]="['/post', post.id, 'edit']"
-                                class="btn btn-primary btn-sm">
+                            <button type="submit" [routerLink]="['/post', post.id, 'edit']" class="btn btn-primary btn-sm">
                             <fa-icon [icon]="'pencil-alt'"></fa-icon>
                             <span class="d-none d-md-inline">Edit</span>
                         </button>
-                        <button type="submit"
-                                [routerLink]="['/', 'post', { outlets: { popup: post.id + '/delete'} }]"
-                                replaceUrl="true"
-                                queryParamsHandling="merge"
-                                class="btn btn-danger btn-sm">
+                            <button type="submit" [routerLink]="['/', 'post', { outlets: { popup: post.id + '/delete'} }]" replaceUrl="true" queryParamsHandling="merge" class="btn btn-danger btn-sm">
                             <fa-icon [icon]="'times'"></fa-icon>
                             <span class="d-none d-md-inline">Delete</span>
                         </button>
-                    </div>
-                </td>
-            </tr>
+                        </div>
+                    </td>
+                </tr>
             </tbody>
         </table>
     </div>

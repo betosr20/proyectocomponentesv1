@@ -6,46 +6,26 @@
                 <jhi-alert-error></jhi-alert-error>
                 <div class="form-group" [hidden]="!editForm.get('id').value">
                     <label for="id">ID</label>
-                    <input type="text" class="form-control" id="id" name="id" formControlName="id"
-                        readonly />
+                    <input type="text" class="form-control" id="id" name="id" formControlName="id" readonly />
                 </div>
                 <div class="form-group">
                     <label class="form-control-label" for="field_tittle">Tittle</label>
-                    <input type="text" class="form-control" name="tittle" id="field_tittle"
-                           formControlName="tittle"/>
+                    <input type="text" class="form-control" name="tittle" id="field_tittle" formControlName="tittle" />
                 </div>
                 <div class="form-group">
                     <label class="form-control-label" for="field_text">Text</label>
-                    <input type="text" class="form-control" name="text" id="field_text"
-                           formControlName="text"/>
-                </div>
-                <div class="form-group">
-                    <label class="form-control-label" for="field_status">Status</label>
-                    <input type="text" class="form-control" name="status" id="field_status"
-                           formControlName="status"/>
-                </div>
-                <div class="form-group">
-                    <label class="form-control-label" for="field_timestamp">Timestamp</label>
-                    <input type="text" class="form-control" name="timestamp" id="field_timestamp"
-                           formControlName="timestamp"/>
+                    <input type="text" class="form-control" name="text" id="field_text" formControlName="text" />
                 </div>
 
                 <div class="form-group">
-                    <label class="form-control-label" for="field_userExtra">User Extra</label>
-                    <select class="form-control" id="field_userExtra" name="userExtra" formControlName="userExtra">
-                        <option [ngValue]="null"></option>
-                        <option [ngValue]="userExtraOption.id === editForm.get('userExtra').value?.id ? editForm.get('userExtra').value : userExtraOption" *ngFor="let userExtraOption of userextras; trackBy: trackUserExtraById">{{userExtraOption.id}}</option>
-                    </select>
-                </div>
-                <div class="form-group">
                     <label for="field_tags">Tag</label>
                     <select class="form-control" id="field_tags" multiple name="tags" formControlName="tags">
-                        <option [ngValue]="getSelected(editForm.get('tags').value, tagOption)" *ngFor="let tagOption of tags; trackBy: trackTagById">{{tagOption.id}}</option>
+                        <option [ngValue]="getSelected(editForm.get('tags').value, tagOption)" *ngFor="let tagOption of tags; trackBy: trackTagById">{{tagOption.name}}</option>
                     </select>
                 </div>
             </div>
             <div>
-                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                <button type="button" id="cancel-save" class="btn btn-secondary" (click)="previousState()">
                     <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancel</span>
                 </button>
                 <button type="submit" id="save-entity" [disabled]="editForm.invalid || isSaving" class="btn btn-primary">

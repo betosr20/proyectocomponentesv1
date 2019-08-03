@@ -11,6 +11,7 @@ import { IUserExtra } from 'app/shared/model/user-extra.model';
 import { UserExtraService } from 'app/entities/user-extra';
 import { ITag } from 'app/shared/model/tag.model';
 import { TagService } from 'app/entities/tag';
+import { AccountService } from '../../core/auth/account.service';
 
 @Component({
   selector: 'jhi-post-update',
@@ -18,7 +19,7 @@ import { TagService } from 'app/entities/tag';
 })
 export class PostUpdateComponent implements OnInit {
   isSaving: boolean;
-
+  userExtra: IUserExtra;
   userextras: IUserExtra[];
 
   tags: ITag[];
@@ -39,7 +40,8 @@ export class PostUpdateComponent implements OnInit {
     protected userExtraService: UserExtraService,
     protected tagService: TagService,
     protected activatedRoute: ActivatedRoute,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private accountService: AccountService
   ) {}
 
   ngOnInit() {
@@ -61,6 +63,10 @@ export class PostUpdateComponent implements OnInit {
         map((response: HttpResponse<ITag[]>) => response.body)
       )
       .subscribe((res: ITag[]) => (this.tags = res), (res: HttpErrorResponse) => this.onError(res.message));
+
+    this.userExtraService.findByUserId(this.accountService.user.id).subscribe(user => {
+      this.userExtra = user.body;
+    });
   }
 
   updateForm(post: IPost) {
@@ -97,7 +103,7 @@ export class PostUpdateComponent implements OnInit {
       text: this.editForm.get(['text']).value,
       status: this.editForm.get(['status']).value,
       timestamp: this.editForm.get(['timestamp']).value,
-      userExtra: this.editForm.get(['userExtra']).value,
+      userExtra: this.userExtra,
       tags: this.editForm.get(['tags']).value
     };
   }
