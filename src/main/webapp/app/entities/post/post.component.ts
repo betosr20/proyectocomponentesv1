@@ -45,6 +45,8 @@ export class PostComponent implements OnInit, OnDestroy {
       this.currentAccount = account;
     });
     this.registerChangeInPosts();
+
+    console.log(this.posts[0].comments[0].comment);
   }
 
   ngOnDestroy() {
