@@ -33,7 +33,7 @@
     "dtoSuffix": "DTO",
     "otherModules": [],
     "enableTranslation": false,
-    "herokuAppName": "proyecto-v-1",
+    "herokuAppName": "proyectocomponentesv1",
     "herokuDeployType": "git"
   }
 }
