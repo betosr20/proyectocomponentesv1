@@ -26,7 +26,7 @@ export class PostComponent implements OnInit, OnDestroy {
 
   loadAll() {
     this.postService
-      .query()
+      .queryByUser()
       .pipe(
         filter((res: HttpResponse<IPost[]>) => res.ok),
         map((res: HttpResponse<IPost[]>) => res.body)

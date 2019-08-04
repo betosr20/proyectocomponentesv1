@@ -1,11 +1,19 @@
 package com.cenfotec.proyectov1.web.rest;
 
+import com.cenfotec.proyectov1.domain.Comment;
+import com.cenfotec.proyectov1.domain.User;
+import com.cenfotec.proyectov1.domain.UserExtra;
 import com.cenfotec.proyectov1.domain.Post;
 import com.cenfotec.proyectov1.repository.PostRepository;
+import com.cenfotec.proyectov1.repository.UserExtraRepository;
+import com.cenfotec.proyectov1.repository.UserRepository;
+import com.cenfotec.proyectov1.service.UserService;
 import com.cenfotec.proyectov1.web.rest.errors.BadRequestAlertException;
 
 import io.github.jhipster.web.util.HeaderUtil;
 import io.github.jhipster.web.util.ResponseUtil;
+
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -17,6 +25,7 @@ import java.net.URISyntaxException;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 /**
  * REST controller for managing {@link com.cenfotec.proyectov1.domain.Post}.
@@ -26,16 +35,21 @@ import java.util.Optional;
 public class PostResource {
 
     private final Logger log = LoggerFactory.getLogger(PostResource.class);
-
+    private UserService userService;
     private static final String ENTITY_NAME = "post";
 
     @Value("${jhipster.clientApp.name}")
     private String applicationName;
 
     private final PostRepository postRepository;
+    private final UserRepository userRepository;
+    private final UserExtraRepository userExtraRepository;
 
-    public PostResource(PostRepository postRepository) {
+    public PostResource(UserService userService, PostRepository postRepository,UserRepository puserRepository,UserExtraRepository puserExtraRepository) {
         this.postRepository = postRepository;
+        this.userService = userService;
+        this.userRepository = puserRepository;
+        this.userExtraRepository =puserExtraRepository;
     }
 
     /**
@@ -102,7 +116,16 @@ public class PostResource {
         Optional<Post> post = postRepository.findOneWithEagerRelationships(id);
         return ResponseUtil.wrapOrNotFound(post);
     }
-
+    /**
+     * {@code GET  /posts/:id_user} : get the "id_user" post.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of posts in body.
+    */
+    @GetMapping("/posts/user")
+    public Set<Post> getPostByUser(@RequestParam(required = false, defaultValue = "false") boolean eagerload) {
+        Long id_user = this.userService.getUserWithAuthorities().get().getId();
+        Optional<UserExtra> userExtra = this.userExtraRepository.findUserExternalByIdUserJHipster(id_user);
+        return  userExtra.get().getPosts();
+    }
     /**
      * {@code DELETE  /posts/:id} : delete the "id" post.
      *
