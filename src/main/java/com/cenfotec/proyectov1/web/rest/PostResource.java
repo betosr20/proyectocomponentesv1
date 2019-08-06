@@ -66,6 +66,9 @@ public class PostResource {
         if (post.getId() != null) {
             throw new BadRequestAlertException("A new post cannot already have an ID", ENTITY_NAME, "idexists");
         }
+        Long id_user = this.userService.getUserWithAuthorities().get().getId();
+        Optional<UserExtra> userExtra = this.userExtraRepository.findUserExternalByIdUserJHipster(id_user);
+        post.setUserExtra(userExtra.get());
         post.setTimestamp(""+LocalDate.now());
         post.setStatus("Active");
         Post result = postRepository.save(post);
