@@ -4,6 +4,7 @@ import com.cenfotec.proyectov1.domain.Comment;
 import com.cenfotec.proyectov1.domain.User;
 import com.cenfotec.proyectov1.domain.UserExtra;
 import com.cenfotec.proyectov1.domain.Post;
+import com.cenfotec.proyectov1.domain.Tag;
 import com.cenfotec.proyectov1.repository.PostRepository;
 import com.cenfotec.proyectov1.repository.UserExtraRepository;
 import com.cenfotec.proyectov1.repository.UserRepository;
@@ -22,7 +23,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 import java.net.URISyntaxException;
-
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -42,13 +45,11 @@ public class PostResource {
     private String applicationName;
 
     private final PostRepository postRepository;
-    private final UserRepository userRepository;
     private final UserExtraRepository userExtraRepository;
 
-    public PostResource(UserService userService, PostRepository postRepository,UserRepository puserRepository,UserExtraRepository puserExtraRepository) {
+    public PostResource(UserService userService, PostRepository postRepository,UserExtraRepository puserExtraRepository) {
         this.postRepository = postRepository;
         this.userService = userService;
-        this.userRepository = puserRepository;
         this.userExtraRepository =puserExtraRepository;
     }
 
@@ -65,6 +66,8 @@ public class PostResource {
         if (post.getId() != null) {
             throw new BadRequestAlertException("A new post cannot already have an ID", ENTITY_NAME, "idexists");
         }
+        post.setTimestamp(""+LocalDate.now());
+        post.setStatus("Active");
         Post result = postRepository.save(post);
         return ResponseEntity.created(new URI("/api/posts/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, false, ENTITY_NAME, result.getId().toString()))
@@ -86,6 +89,9 @@ public class PostResource {
         if (post.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
+        Long id_user = this.userService.getUserWithAuthorities().get().getId();
+        Optional<UserExtra> userExtra = this.userExtraRepository.findUserExternalByIdUserJHipster(id_user);
+        post.setUserExtra(userExtra.get());
         Post result = postRepository.save(post);
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert(applicationName, false, ENTITY_NAME, post.getId().toString()))
@@ -121,10 +127,18 @@ public class PostResource {
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of posts in body.
     */
     @GetMapping("/posts/user")
-    public Set<Post> getPostByUser(@RequestParam(required = false, defaultValue = "false") boolean eagerload) {
+    public List<Post> getPostByUser(@RequestParam(required = false, defaultValue = "false") boolean eagerload) {
         Long id_user = this.userService.getUserWithAuthorities().get().getId();
         Optional<UserExtra> userExtra = this.userExtraRepository.findUserExternalByIdUserJHipster(id_user);
-        return  userExtra.get().getPosts();
+        List<Post> listPost =  new ArrayList<Post>();
+
+        for (Iterator<Post> iterator = userExtra.get().getPosts().iterator(); iterator.hasNext();) {
+            Post post = iterator.next();
+            Optional<Post> auxiPost  = postRepository.findOneWithEagerRelationships(post.getId());
+            listPost.add(auxiPost.get());
+        }
+
+        return  listPost;
     }
     /**
      * {@code DELETE  /posts/:id} : delete the "id" post.
