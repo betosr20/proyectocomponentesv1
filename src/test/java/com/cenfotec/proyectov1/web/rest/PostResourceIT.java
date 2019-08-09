@@ -78,13 +78,13 @@ public class PostResourceIT {
     @BeforeEach
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        final PostResource postResource = new PostResource(postRepository);
-        this.restPostMockMvc = MockMvcBuilders.standaloneSetup(postResource)
-            .setCustomArgumentResolvers(pageableArgumentResolver)
-            .setControllerAdvice(exceptionTranslator)
-            .setConversionService(createFormattingConversionService())
-            .setMessageConverters(jacksonMessageConverter)
-            .setValidator(validator).build();
+       // final PostResource postResource = new PostResource(postRepository);
+    //    this.restPostMockMvc = MockMvcBuilders.standaloneSetup(postResource)
+    //        .setCustomArgumentResolvers(pageableArgumentResolver)
+     //       .setControllerAdvice(exceptionTranslator)
+     //       .setConversionService(createFormattingConversionService())
+     //       .setMessageConverters(jacksonMessageConverter)
+     //       .setValidator(validator).build();
     }
 
     /**
@@ -181,14 +181,14 @@ public class PostResourceIT {
     
     @SuppressWarnings({"unchecked"})
     public void getAllPostsWithEagerRelationshipsIsEnabled() throws Exception {
-        PostResource postResource = new PostResource(postRepositoryMock);
+        //PostResource postResource = new PostResource(postRepositoryMock);
         when(postRepositoryMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
 
-        MockMvc restPostMockMvc = MockMvcBuilders.standaloneSetup(postResource)
-            .setCustomArgumentResolvers(pageableArgumentResolver)
-            .setControllerAdvice(exceptionTranslator)
-            .setConversionService(createFormattingConversionService())
-            .setMessageConverters(jacksonMessageConverter).build();
+       // MockMvc restPostMockMvc = MockMvcBuilders.standaloneSetup(postResource)
+        //    .setCustomArgumentResolvers(pageableArgumentResolver)
+        //    .setControllerAdvice(exceptionTranslator)
+        //    .setConversionService(createFormattingConversionService())
+        //    .setMessageConverters(jacksonMessageConverter).build();
 
         restPostMockMvc.perform(get("/api/posts?eagerload=true"))
         .andExpect(status().isOk());
@@ -198,13 +198,13 @@ public class PostResourceIT {
 
     @SuppressWarnings({"unchecked"})
     public void getAllPostsWithEagerRelationshipsIsNotEnabled() throws Exception {
-        PostResource postResource = new PostResource(postRepositoryMock);
+      //  PostResource postResource = new PostResource(postRepositoryMock);
             when(postRepositoryMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
-            MockMvc restPostMockMvc = MockMvcBuilders.standaloneSetup(postResource)
-            .setCustomArgumentResolvers(pageableArgumentResolver)
-            .setControllerAdvice(exceptionTranslator)
-            .setConversionService(createFormattingConversionService())
-            .setMessageConverters(jacksonMessageConverter).build();
+      //      MockMvc restPostMockMvc = MockMvcBuilders.standaloneSetup(postResource)
+      //      .setCustomArgumentResolvers(pageableArgumentResolver)
+      //      .setControllerAdvice(exceptionTranslator)
+      //      .setConversionService(createFormattingConversionService())
+      //      .setMessageConverters(jacksonMessageConverter).build();
 
         restPostMockMvc.perform(get("/api/posts?eagerload=true"))
         .andExpect(status().isOk());
