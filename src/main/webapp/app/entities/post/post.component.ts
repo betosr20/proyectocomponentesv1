@@ -10,7 +10,8 @@ import { PostService } from './post.service';
 
 @Component({
   selector: 'jhi-post',
-  templateUrl: './post.component.html'
+  templateUrl: './post.component.html',
+  styleUrls: ['./post.component.scss']
 })
 export class PostComponent implements OnInit, OnDestroy {
   posts: IPost[];
@@ -26,7 +27,7 @@ export class PostComponent implements OnInit, OnDestroy {
 
   loadAll() {
     this.postService
-      .query()
+      .queryByUser()
       .pipe(
         filter((res: HttpResponse<IPost[]>) => res.ok),
         map((res: HttpResponse<IPost[]>) => res.body)
@@ -45,8 +46,6 @@ export class PostComponent implements OnInit, OnDestroy {
       this.currentAccount = account;
     });
     this.registerChangeInPosts();
-
-    console.log(this.posts[0].comments[0].comment);
   }
 
   ngOnDestroy() {
