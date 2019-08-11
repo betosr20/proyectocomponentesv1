@@ -82,12 +82,13 @@ export class PostUpdateComponent implements OnInit {
   }
 
   previousState() {
-    window.history.back();
+    //window.history.back();
   }
 
   save() {
     this.isSaving = true;
     const post = this.createFromForm();
+    console.log(post);
     if (post.id !== undefined) {
       this.subscribeToSaveResponse(this.postService.update(post));
     } else {

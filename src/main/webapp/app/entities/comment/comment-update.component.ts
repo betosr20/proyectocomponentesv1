@@ -64,6 +64,7 @@ export class CommentUpdateComponent implements OnInit {
   save() {
     this.isSaving = true;
     const comment = this.createFromForm();
+    console.log('AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA');
     console.log(comment);
     if (comment.id !== undefined) {
       this.subscribeToSaveResponse(this.commentService.update(comment));
