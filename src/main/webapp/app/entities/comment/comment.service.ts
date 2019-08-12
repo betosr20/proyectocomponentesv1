@@ -19,6 +19,10 @@ export class CommentService {
     return this.http.post<IComment>(this.resourceUrl, comment, { observe: 'response' });
   }
 
+  createWithPost(comment: IComment, id_post: number): Observable<EntityResponseType> {
+    return this.http.post<IComment>(`${this.resourceUrl}/${id_post}`, comment, { observe: 'response' });
+  }
+
   update(comment: IComment): Observable<EntityResponseType> {
     return this.http.put<IComment>(this.resourceUrl, comment, { observe: 'response' });
   }

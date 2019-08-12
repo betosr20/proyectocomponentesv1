@@ -24,6 +24,24 @@
                     </div>
                 </div>
                 <div class="row">
+                    <div class="span8">
+                        <div class="float-right mt-2">
+                            <button type="submit" [routerLink]="['/post', post.id, 'view' ]" class="btn btn-info btn-sm">
+                                <fa-icon [icon]="'eye'"></fa-icon>
+                                <span class="d-none d-md-inline">View</span>
+                            </button>
+                            <button type="submit" [routerLink]="['/post', post.id, 'edit']" class="btn btn-primary btn-sm">
+                                <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                                <span class="d-none d-md-inline">Edit</span>
+                            </button>
+                            <button type="submit" [routerLink]="['/', 'post', { outlets: { popup: post.id + '/delete'} }]" replaceUrl="true" queryParamsHandling="merge" class="btn btn-danger btn-sm">
+                                <fa-icon [icon]="'times'"></fa-icon>
+                                <span class="d-none d-md-inline">Delete</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
                     <div class="col-md-4">
                         <div class="span2">
                             <a href="#" class="thumbnail">
@@ -34,18 +52,29 @@
                     <div class="col-md-8">
                         <div class="span6">
                             <div class="float-right mt-2">
-                                <button type="submit" [routerLink]="['/post', post.id, 'view' ]" class="btn btn-info btn-sm">
-                                    <fa-icon [icon]="'eye'"></fa-icon>
-                                    <span class="d-none d-md-inline">View</span>
-                                </button>
-                                <button type="submit" [routerLink]="['/post', post.id, 'edit']" class="btn btn-primary btn-sm">
-                                    <fa-icon [icon]="'pencil-alt'"></fa-icon>
-                                    <span class="d-none d-md-inline">Edit</span>
-                                </button>
-                                <button type="submit" [routerLink]="['/', 'post', { outlets: { popup: post.id + '/delete'} }]" replaceUrl="true" queryParamsHandling="merge" class="btn btn-danger btn-sm">
-                                    <fa-icon [icon]="'times'"></fa-icon>
-                                    <span class="d-none d-md-inline">Delete</span>
-                                </button>
+                                <form name="editForm" role="form" novalidate (ngSubmit)="saveComment(post)" [formGroup]="editForm">
+                                    <h2 id="jhi-comment-heading">Create or edit a Comment</h2>
+                                    <div>
+                                        <jhi-alert-error></jhi-alert-error>
+                                        <div class="form-group" [hidden]="!editForm.get('id').value">
+                                            <label for="id">ID</label>
+                                            <input type="text" class="form-control" id="id" name="id" formControlName="id"readonly />
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="form-control-label" for="field_comment">Comment</label>
+                                            <input type="text" class="form-control" name="comment" id="field_comment" formControlName="comment"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="hidden" class="form-control" name="timestamp" id="field_timestamp" formControlName="timestamp"/>
+                                            <input type="hidden" name="id"  value="{{  post.id }}">
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <button type="submit" id="save-entity" [disabled]="editForm.invalid || isSaving" class="btn btn-primary">
+                                            <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>
+                                        </button>
+                                    </div>
+                                </form>
                             </div>
                             <br>
                             <br>

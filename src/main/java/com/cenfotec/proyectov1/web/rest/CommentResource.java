@@ -1,7 +1,9 @@
 package com.cenfotec.proyectov1.web.rest;
 
 import com.cenfotec.proyectov1.domain.Comment;
+import com.cenfotec.proyectov1.domain.Post;
 import com.cenfotec.proyectov1.repository.CommentRepository;
+import com.cenfotec.proyectov1.repository.PostRepository;
 import com.cenfotec.proyectov1.web.rest.errors.BadRequestAlertException;
 
 import io.github.jhipster.web.util.HeaderUtil;
@@ -33,9 +35,11 @@ public class CommentResource {
     private String applicationName;
 
     private final CommentRepository commentRepository;
+    private final PostRepository postRepository;
 
-    public CommentResource(CommentRepository commentRepository) {
+    public CommentResource(CommentRepository commentRepository, PostRepository postRepository) {
         this.commentRepository = commentRepository;
+        this.postRepository = postRepository;
     }
 
     /**
@@ -52,6 +56,20 @@ public class CommentResource {
             throw new BadRequestAlertException("A new comment cannot already have an ID", ENTITY_NAME, "idexists");
         }
         comment.setTimestamp(""+LocalDate.now());
+        Comment result = commentRepository.save(comment);
+        return ResponseEntity.created(new URI("/api/comments/" + result.getId()))
+            .headers(HeaderUtil.createEntityCreationAlert(applicationName, false, ENTITY_NAME, result.getId().toString()))
+            .body(result);
+    }
+    @PostMapping("/comments/{id_post}")
+    public ResponseEntity<Comment> createCommentWithPost(@RequestBody Comment comment,@PathVariable Long id_post) throws URISyntaxException {
+        log.debug("REST request to save Comment : {}", comment);
+        if (comment.getId() != null) {
+            throw new BadRequestAlertException("A new comment cannot already have an ID", ENTITY_NAME, "idexists");
+        }
+        comment.setTimestamp(""+LocalDate.now());
+        Post post = this.postRepository.findById(id_post).get();
+        comment.setPost(post);
         Comment result = commentRepository.save(comment);
         return ResponseEntity.created(new URI("/api/comments/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, false, ENTITY_NAME, result.getId().toString()))

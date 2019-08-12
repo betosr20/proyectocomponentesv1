@@ -156,7 +156,7 @@ public class CommentResourceIT {
             .andExpect(jsonPath("$.[*].comment").value(hasItem(DEFAULT_COMMENT.toString())))
             .andExpect(jsonPath("$.[*].timestamp").value(hasItem(DEFAULT_TIMESTAMP.toString())));
     }
-    
+
     @Test
     @Transactional
     public void getComment() throws Exception {
