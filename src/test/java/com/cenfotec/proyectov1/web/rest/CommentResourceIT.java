@@ -64,13 +64,13 @@ public class CommentResourceIT {
     @BeforeEach
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        final CommentResource commentResource = new CommentResource(commentRepository);
-        this.restCommentMockMvc = MockMvcBuilders.standaloneSetup(commentResource)
-            .setCustomArgumentResolvers(pageableArgumentResolver)
-            .setControllerAdvice(exceptionTranslator)
-            .setConversionService(createFormattingConversionService())
-            .setMessageConverters(jacksonMessageConverter)
-            .setValidator(validator).build();
+        //final CommentResource commentResource = new CommentResource(commentRepository);
+      //  this.restCommentMockMvc = MockMvcBuilders.standaloneSetup(commentResource)
+      //      .setCustomArgumentResolvers(pageableArgumentResolver)
+        //    .setControllerAdvice(exceptionTranslator)
+        //    .setConversionService(createFormattingConversionService())
+        //    .setMessageConverters(jacksonMessageConverter)
+         //   .setValidator(validator).build();
     }
 
     /**

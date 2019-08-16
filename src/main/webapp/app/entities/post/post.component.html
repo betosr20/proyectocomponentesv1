@@ -1,109 +1,109 @@
-
 <div>
     <h2 id="page-heading">
         <span>Posts</span>
         <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-post" [routerLink]="['/post/new']">
             <fa-icon [icon]="'plus'"></fa-icon>
             <span >
-            Create new Post
+            Crear nuevo Post
             </span>
         </button>
     </h2>
     <jhi-alert></jhi-alert>
     <br/>
+
     <div class="alert alert-warning" *ngIf="posts?.length === 0">
         <span>No posts found</span>
     </div>
+    <div *ngIf="posts?.length > 0">
+        <div class="container card-columns">
+            <div class="span8 card" *ngFor="let post of posts ;trackBy: trackId">
+                <div class="body">
+                    <div>
+                        <div>
+                            <h2><strong class="card-title">{{ post.tittle }}</strong>
+                            </h2>
+                        </div>
+                    </div>
+                    <div>
+                        <div>
+                            <div>
+                                <button type="submit" [routerLink]="['/post', post.id, 'view' ]" class="btn btn-info btn-sm">
+                                        <fa-icon [icon]="'eye'"></fa-icon>
+                                        <span class="d-none d-md-inline">Ver</span>
+                                    </button>
+                                <button type="submit" [routerLink]="['/post', post.id, 'edit']" class="btn btn-primary btn-sm">
+                                        <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                                        <span class="d-none d-md-inline">Editar</span>
+                                    </button>
+                                <button type="submit" [routerLink]="['/', 'post', { outlets: { popup: post.id + '/delete'} }]" replaceUrl="true" queryParamsHandling="merge" class="btn btn-danger btn-sm">
+                                        <fa-icon [icon]="'times'"></fa-icon>
+                                        <span class="d-none d-md-inline">Borrar</span>
+                                    </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
 
-    <div class="row"  *ngIf="posts?.length > 0">
-        <div class="container">
-            <div class="span8" *ngFor="let post of posts ;trackBy: trackId">
-                <div class="row">
-                    <div class="span8">
-                        <h4><strong><a >{{ post.tittle }}</a></strong></h4>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="span8">
-                        <div class="float-right mt-2">
-                            <button type="submit" [routerLink]="['/post', post.id, 'view' ]" class="btn btn-info btn-sm">
-                                <fa-icon [icon]="'eye'"></fa-icon>
-                                <span class="d-none d-md-inline">View</span>
-                            </button>
-                            <button type="submit" [routerLink]="['/post', post.id, 'edit']" class="btn btn-primary btn-sm">
-                                <fa-icon [icon]="'pencil-alt'"></fa-icon>
-                                <span class="d-none d-md-inline">Edit</span>
-                            </button>
-                            <button type="submit" [routerLink]="['/', 'post', { outlets: { popup: post.id + '/delete'} }]" replaceUrl="true" queryParamsHandling="merge" class="btn btn-danger btn-sm">
-                                <fa-icon [icon]="'times'"></fa-icon>
-                                <span class="d-none d-md-inline">Delete</span>
-                            </button>
+                        <div>
+                            <div>
+
+                                <p>
+                                    <h6>{{ post.text }}</h6>
+                                </p>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-4">
-                        <div class="span2">
-                            <a href="#" class="thumbnail">
-                                <img src="https://picsum.photos/200/300?grayscale"  width="260" height="180" alt="">
-                            </a>
+                    <div>
+                        <div>
+                            <p>
+                                <i class="icon-user"></i> by <a [routerLink]="['../user-extra', post.userExtra?.id, 'view' ]">{{post.userExtra?.nickname}}</a> | <i class="icon-calendar"></i> {{ post.timestamp | date: 'MMMM d, y' }} | <i class="icon-comment"></i>                                <a>{{ post.comments.length }}  Comments</a> | <i class="icon-tags"></i> Tags :
+                                <span *ngFor="let tag of post.tags; let last = last">
+                                        <a class="form-control-static" [routerLink]="['../tag', tag?.id, 'view' ]">{{ tag.name}}</a>{{last ? '' : ', '}}
+                                    </span>
+                            </p>
+
                         </div>
                     </div>
-                    <div class="col-md-8">
-                        <div class="span6">
-                            <div class="float-right mt-2">
-                                <form name="editForm" role="form" novalidate (ngSubmit)="saveComment(post)" [formGroup]="editForm">
-                                    <h2 id="jhi-comment-heading">Create or edit a Comment</h2>
-                                    <div>
-                                        <jhi-alert-error></jhi-alert-error>
-                                        <div class="form-group" [hidden]="!editForm.get('id').value">
-                                            <label for="id">ID</label>
-                                            <input type="text" class="form-control" id="id" name="id" formControlName="id"readonly />
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="form-control-label" for="field_comment">Comment</label>
-                                            <input type="text" class="form-control" name="comment" id="field_comment" formControlName="comment"/>
-                                        </div>
-                                        <div class="form-group">
-                                            <input type="hidden" class="form-control" name="timestamp" id="field_timestamp" formControlName="timestamp"/>
-                                            <input type="hidden" name="id"  value="{{  post.id }}">
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <button type="submit" id="save-entity" [disabled]="editForm.invalid || isSaving" class="btn btn-primary">
+                    <h4><strong><a >Comments</a></strong></h4>
+                    <div class="span8" *ngFor="let comment of post.comments">
+                        <span> {{comment.comment}}</span>
+                        <br>
+                        <br>
+                    </div>
+                    <div class="col-sm">
+                        <form name="editForm" role="form" novalidate (ngSubmit)="saveComment(post)" [formGroup]="editForm">
+                            <h2 id="jhi-comment-heading">Crear comentario</h2>
+                            <div>
+                                <jhi-alert-error></jhi-alert-error>
+                                <div class="form-group" [hidden]="!editForm.get('id').value">
+                                    <label for="id">ID</label>
+                                    <input type="text" class="form-control" id="id" name="id" formControlName="id" readonly />
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-control-label" for="field_comment">Comentario</label>
+                                    <input type="text" class="form-control col-sm-5" name="comment" id="field_comment" formControlName="comment" />
+                                </div>
+                                <div class="form-group">
+                                    <input type="hidden" class="form-control" name="timestamp" id="field_timestamp" formControlName="timestamp" />
+                                    <input type="hidden" name="id" value="{{  post.id }}">
+                                </div>
+                            </div>
+                            <div>
+                                <button type="submit" id="save-entity" [disabled]="editForm.invalid || isSaving" class="btn btn-primary">
                                             <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>
                                         </button>
-                                    </div>
-                                </form>
                             </div>
-                            <br>
-                            <br>
-                            <p>
-                                {{ post.text }}
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="span8">
-                        <p></p>
-                        <p>
-                            <i class="icon-user"></i> by  <a [routerLink]="['../user-extra', post.userExtra?.id, 'view' ]">{{post.userExtra?.nickname}}</a>
-                            | <i class="icon-calendar"></i> {{  post.timestamp  | date: 'MMMM d, y' }}
-                            | <i class="icon-comment"></i> <a >{{ post.comments.length }}  Comments</a>
-                            | <i class="icon-tags"></i> Tags :
-                            <span *ngFor="let tag of post.tags; let last = last">
-                                <a class="form-control-static" [routerLink]="['../tag', tag?.id, 'view' ]">{{ tag.name}}</a>{{last ? '' : ', '}}
-                            </span>
-                        </p>
-
+                        </form>
                     </div>
                 </div>
             </div>
+
+
         </div>
         <hr>
     </div>
-<!--     <div class="table-responsive" *ngIf="posts?.length > 0">
+
+    <!--     <div class="table-responsive" *ngIf="posts?.length > 0">
         <table class="table table-striped">
             <thead>
                 <tr>
