@@ -92,7 +92,11 @@ export class PostComponent implements OnInit, OnDestroy {
 
   protected onSaveSuccess() {
     this.isSaving = false;
-    this.previousState();
+    this.editForm.get(['comment']).setValue('');
+    this.eventManager.broadcast({
+      name: 'postListModification',
+      content: 'Updated a post'
+    });
   }
 
   protected onSaveError() {

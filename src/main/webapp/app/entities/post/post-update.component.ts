@@ -82,7 +82,7 @@ export class PostUpdateComponent implements OnInit {
   }
 
   previousState() {
-    //window.history.back();
+    window.history.back();
   }
 
   save() {

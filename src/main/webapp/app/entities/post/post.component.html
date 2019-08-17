@@ -1,6 +1,6 @@
 <div>
     <h2 id="page-heading">
-        <span>Posts</span>
+        <i class="fa fa-align-center" aria-hidden="true"><h1> <strong>Posts</strong></h1></i>
         <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-post" [routerLink]="['/post/new']">
             <fa-icon [icon]="'plus'"></fa-icon>
             <span >
@@ -56,7 +56,7 @@
                     <div>
                         <div>
                             <p>
-                                <i class="icon-user"></i> by <a [routerLink]="['../user-extra', post.userExtra?.id, 'view' ]">{{post.userExtra?.nickname}}</a> | <i class="icon-calendar"></i> {{ post.timestamp | date: 'MMMM d, y' }} | <i class="icon-comment"></i>                                <a>{{ post.comments.length }}  Comments</a> | <i class="icon-tags"></i> Tags :
+                                <i class="icon-user"></i> by <a [routerLink]="['../user-extra', post.userExtra?.id, 'view' ]">{{post.userExtra?.nickname}}</a> | <i class="icon-calendar"></i> {{ post.timestamp | date: 'MMMM d, y' }} | <i class="icon-comment"></i>                                <a>{{ post.comments.length }}  Comentarios</a> | <i class="icon-tags"></i> Tags :
                                 <span *ngFor="let tag of post.tags; let last = last">
                                         <a class="form-control-static" [routerLink]="['../tag', tag?.id, 'view' ]">{{ tag.name}}</a>{{last ? '' : ', '}}
                                     </span>
@@ -64,7 +64,7 @@
 
                         </div>
                     </div>
-                    <h4><strong><a >Comments</a></strong></h4>
+                    <h4><strong><a >Comentarios</a></strong></h4>
                     <div class="span8" *ngFor="let comment of post.comments">
                         <span> {{comment.comment}}</span>
                         <br>
@@ -90,7 +90,7 @@
                             </div>
                             <div>
                                 <button type="submit" id="save-entity" [disabled]="editForm.invalid || isSaving" class="btn btn-primary">
-                                            <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>
+                                            <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Guardar</span>
                                         </button>
                             </div>
                         </form>
