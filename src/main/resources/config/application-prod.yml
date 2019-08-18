@@ -120,7 +120,7 @@ jhipster:
         token-validity-in-seconds-for-remember-me: 2592000
   mail: # specific JHipster mail property, for standard properties see MailProperties
     from: ProyectoV1@localhost
-    base-url: http://my-server-url-to-change # Modify according to your server's URL
+    base-url: https://proyectocomponentesv1.herokuapp.com/ # Modify according to your server's URL
   metrics:
     logs: # Reports metrics in the logs
       enabled: false
