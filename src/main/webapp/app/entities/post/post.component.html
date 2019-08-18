@@ -1,6 +1,6 @@
 <div>
     <h2 id="page-heading">
-        <i class="fa fa-align-center" aria-hidden="true"><h1> <strong>Posts</strong></h1></i>
+        <i class="fa fa-align-center" aria-hidden="true"><h1> <strong>Lista de todos los Post</strong></h1></i>
         <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-post" [routerLink]="['/post/new']">
             <fa-icon [icon]="'plus'"></fa-icon>
             <span >
@@ -16,7 +16,7 @@
     </div>
     <div *ngIf="posts?.length > 0">
         <div class="container card-columns">
-            <div class="span8 card" *ngFor="let post of posts ;trackBy: trackId">
+            <div class="span8 card p-4" *ngFor="let post of posts ;trackBy: trackId">
                 <div class="body">
                     <div>
                         <div>
