@@ -177,6 +177,12 @@ public class UserResource {
                 .map(UserDTO::new));
     }
 
+    @GetMapping("/users/{id}")
+    public ResponseEntity<User> getUserById(@PathVariable Long id) {
+        Optional<User> user = userRepository.findByIdUser(id);
+        return ResponseUtil.wrapOrNotFound(user);
+    }
+
     /**
      * {@code DELETE /users/:login} : delete the "login" User.
      *
