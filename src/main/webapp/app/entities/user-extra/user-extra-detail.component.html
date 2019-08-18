@@ -1,35 +1,108 @@
 <div class="row justify-content-center">
-    <div class="col-8">
-        <div *ngIf="userExtra">
-            <h2><span>User Extra</span> {{userExtra.id}}</h2>
-            <hr>
-            <jhi-alert-error></jhi-alert-error>
-            <dl class="row-md jh-entity-details">
-                <dt><span>Nickname</span></dt>
-                <dd>
-                    <span>{{userExtra.nickname}}</span>
-                </dd>
-                <dt><span>Status</span></dt>
-                <dd>
-                    <span>{{userExtra.status}}</span>
-                </dd>
-                <dt><span>User Id</span></dt>
-                <dd>
-                    <span>{{userExtra.userId}}</span>
-                </dd>
-            </dl>
 
-            <button type="submit"
-                    (click)="previousState()"
-                    class="btn btn-info">
-                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Back</span>
-            </button>
 
-            <button type="button"
-                    [routerLink]="['/user-extra', userExtra.id, 'edit']"
-                    class="btn btn-primary">
-                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Edit</span>
-            </button>
+    <div class="col-md-12">
+        <div class="align-center">
+            <div>
+                <img src="http://img.fenixzone.net/i/EZBDv8i.png" name="aboutme" width="140" height="140" border="0" class="img-circle"></a>
+                <h3 class="media-heading">{{ userExtra.nickname }}</h3>
+                <span><strong>Información: </strong></span>
+                    <span class="badge badge-success">
+                        Id extra: {{ userExtra.id }}
+                    </span>
+                    <span class="badge badge-secondary">
+                        Id usuario Jhipster : {{ userJhipster.id }}
+                    </span>
+                    <span  *ngIf="userJhipster.firstName != null"  class="badge badge-dark">
+                        Nombre de usuario : {{ userJhipster.firstName }} {{ userJhipster.lastName }}
+                    </span>
+                    <span *ngIf="userExtra.status == 1" class="badge badge-warning">
+                        Estado: Activo
+                    </span>
+                    <span class="badge badge-info">
+                        Total Post:{{ posts.length }}
+                    </span>
+                    <span class="badge badge-success">
+                        Email: {{ userJhipster.email }}
+                    </span>
+            </div>
+                <hr>
+            <div>
+                <div *ngIf="posts?.length > 0">
+
+                    <div class="container card-columns">
+                        <div class="span12 card p-4" *ngFor="let post of posts ;trackBy: trackId">
+                            <div class="body">
+                                <div>
+                                    <div>
+                                        <h2><strong class="card-title font-weight-bold">{{ post.tittle }}</strong>
+                                        </h2>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div>
+                                        <div>
+                                            <p class="text-justify">
+                                                {{ post.text }}
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div>
+                                        <p>
+                                            <i class="icon-calendar"></i> {{ post.timestamp | date: 'MMMM d, y' }} | <i class="icon-comment"></i>
+                                            <a> Comentarios: {{ post.comments.length }}</a> | <i class="icon-tags"></i> Tags :
+                                            <span *ngFor="let tag of post.tags; let last = last" >
+                                                <a *ngIf="last == 0" class="form-control-static badge badge-success" [routerLink]="['../tag', tag?.id, 'view' ]">{{ tag.name}}</a>
+                                                <a *ngIf="last > 0" class="form-control-static badge badge-warning" [routerLink]="['../tag', tag?.id, 'view' ]">{{ tag.name}}</a>
+                                                <a *ngIf="last > 1" class="form-control-static badge badge-info" [routerLink]="['../tag', tag?.id, 'view' ]">{{ tag.name}}</a>
+                                                <a *ngIf="last > 2" class="form-control-static badge badge-dark" [routerLink]="['../tag', tag?.id, 'view' ]">{{ tag.name}}</a>
+                                                {{last ? '' : ', '}}
+                                            </span>
+                                        </p>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div>
+                                        <div>
+                                            <button type="submit" [routerLink]="['/post', post.id, 'view' ]" class="btn btn-info btn-sm">
+                                                    <fa-icon [icon]="'eye'"></fa-icon>
+                                                    <span class="d-none d-md-inline">Ver</span>
+                                                </button>
+                                            <button type="submit" [routerLink]="['/post', post.id, 'edit']" class="btn btn-primary btn-sm">
+                                                    <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                                                    <span class="d-none d-md-inline">Editar</span>
+                                                </button>
+                                            <button type="submit" [routerLink]="['/', 'post', { outlets: { popup: post.id + '/delete'} }]" replaceUrl="true" queryParamsHandling="merge" class="btn btn-danger btn-sm">
+                                                    <fa-icon [icon]="'times'"></fa-icon>
+                                                    <span class="d-none d-md-inline">Borrar</span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 col-lg-12">
+                            <button type="submit"
+                                    (click)="previousState()"
+                                    class="btn btn-info">
+                                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Back</span>
+                            </button>
+
+                            <button type="button"
+                                    [routerLink]="['/user-extra', userExtra.id, 'edit']"
+                                    class="btn btn-primary">
+                                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Edit</span>
+                            </button>
+                        </div>
+                    </div>
+                    <hr>
+                </div>
+
+            </div>
         </div>
     </div>
 </div>

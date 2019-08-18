@@ -1,6 +1,6 @@
 <div>
     <h2 id="page-heading">
-        <i class="fa fa-align-center" aria-hidden="true"><h1> <strong>Posts</strong></h1></i>
+        <i class="fa fa-align-center" aria-hidden="true"><h1> <strong>Lista de todos los Post</strong></h1></i>
         <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-post" [routerLink]="['/post/new']">
             <fa-icon [icon]="'plus'"></fa-icon>
             <span >
@@ -8,15 +8,15 @@
             </span>
         </button>
     </h2>
-    <jhi-alert></jhi-alert>
+    <!-- <jhi-alert></jhi-alert> -->
     <br/>
 
-    <div class="alert alert-warning" *ngIf="posts?.length === 0">
+    <!-- <div class="alert alert-warning" *ngIf="posts?.length === 0">
         <span>No posts found</span>
-    </div>
+    </div> -->
     <div *ngIf="posts?.length > 0">
         <div class="container card-columns">
-            <div class="span8 card" *ngFor="let post of posts ;trackBy: trackId">
+            <div class="span8 card p-4" *ngFor="let post of posts ;trackBy: trackId">
                 <div class="body">
                     <div>
                         <div>
@@ -47,7 +47,7 @@
                         <div>
                             <div>
 
-                                <p>
+                                <p class="text-justify">
                                     <h6>{{ post.text }}</h6>
                                 </p>
                             </div>
@@ -90,8 +90,8 @@
                             </div>
                             <div>
                                 <button type="submit" id="save-entity" [disabled]="editForm.invalid || isSaving" class="btn btn-primary">
-                                            <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Guardar</span>
-                                        </button>
+                                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Guardar</span>
+                                </button>
                             </div>
                         </form>
                     </div>
