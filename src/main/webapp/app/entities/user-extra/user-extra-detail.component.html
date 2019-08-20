@@ -1,6 +1,4 @@
 <div class="row justify-content-center">
-
-
     <div class="col-md-12">
         <div class="align-center">
             <div>
@@ -54,10 +52,10 @@
                                             <i class="icon-calendar"></i> {{ post.timestamp | date: 'MMMM d, y' }} | <i class="icon-comment"></i>
                                             <a> Comentarios: {{ post.comments.length }}</a> | <i class="icon-tags"></i> Tags :
                                             <span *ngFor="let tag of post.tags; let last = last" >
-                                                <a *ngIf="last == 0" class="form-control-static badge badge-success" [routerLink]="['../tag', tag?.id, 'view' ]">{{ tag.name}}</a>
-                                                <a *ngIf="last > 0" class="form-control-static badge badge-warning" [routerLink]="['../tag', tag?.id, 'view' ]">{{ tag.name}}</a>
-                                                <a *ngIf="last > 1" class="form-control-static badge badge-info" [routerLink]="['../tag', tag?.id, 'view' ]">{{ tag.name}}</a>
-                                                <a *ngIf="last > 2" class="form-control-static badge badge-dark" [routerLink]="['../tag', tag?.id, 'view' ]">{{ tag.name}}</a>
+                                                <a [routerLink]="['../../../tag', tag?.id, 'view']" *ngIf="last == 0" class="form-control-static badge badge-success">{{ tag.name}}</a>
+                                                <a [routerLink]="['../../../tag', tag?.id, 'view']" *ngIf="last > 0" class="form-control-static badge badge-warning">{{ tag.name}}</a>
+                                                <a [routerLink]="['../../../tag', tag?.id, 'view']" *ngIf="last > 1" class="form-control-static badge badge-info">{{ tag.name}}</a>
+                                                <a [routerLink]="['../../../tag', tag?.id, 'view']" *ngIf="last > 2" class="form-control-static badge badge-dark">{{ tag.name}}</a>
                                                 {{last ? '' : ', '}}
                                             </span>
                                         </p>
@@ -101,7 +99,6 @@
                     </div>
                     <hr>
                 </div>
-
             </div>
         </div>
     </div>
