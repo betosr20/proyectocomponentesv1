@@ -49,7 +49,7 @@
                                 <div>
 
                                     <p class="text-justify">
-                                        <h6>{{ post.text }}</h6>
+                                        <h6 class="text-justify">{{ post.text }}</h6>
                                     </p>
                                 </div>
                             </div>
@@ -63,7 +63,7 @@
                                     {{ post.timestamp | date: 'MMMM d, y' }} |
                                     <span><fa-icon [icon]="'comments'"></fa-icon></span>
                                      <a>{{ post.comments.length }}</a> |
-                                     <span><fa-icon [icon]="'tag'"></fa-icon></span> Tags :
+                                     <br><span><fa-icon [icon]="'tag'"></fa-icon></span>Tags :
                                     <span *ngFor="let tag of post.tags; let last = last">
                                         <a class="form-control-static" [routerLink]="['../tag', tag?.id, 'view' ]">{{ tag.name}}</a>{{last ? '' : ', '}}
                                     </span>
@@ -71,7 +71,7 @@
 
                             </div>
                         </div>
-                        <div class="detailBox col-md-12">
+                        <div class="detailBox col-md-12" >
                             <div class="titleBox">
                                 <label>Comentarios sobre el post</label>
                                 <button type="button" class="close" aria-hidden="true">
@@ -80,7 +80,7 @@
                             </div>
                             <div class="commentBox">
 
-                                <p class="taskDescription">Estos son los comentarios que han realizado los usuarios sobre este post</p>
+                                <p class="taskDescription">¡Puede realizar comentarios sobre este post si usted gusta!</p>
                             </div>
                             <div class="actionBox">
                                 <ul class="commentList">
