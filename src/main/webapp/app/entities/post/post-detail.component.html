@@ -1,51 +1,45 @@
 <div class="row justify-content-center">
-    <div class="col-8">
+    <div class="col-12">
+        <h1>Detalles del Post</h1>
+    </div>
+    <div class="col-4">
+
+    </div>
+    <div class="col-4">
         <div *ngIf="post">
-            <h2><span>Post</span> {{post.id}}</h2>
-            <hr>
-            <jhi-alert-error></jhi-alert-error>
-            <dl class="row-md jh-entity-details">
-                <dt><span>Tittle</span></dt>
-                <dd>
-                    <span>{{post.tittle}}</span>
-                </dd>
-                <dt><span>Text</span></dt>
-                <dd>
-                    <span>{{post.text}}</span>
-                </dd>
-                <dt><span>Status</span></dt>
-                <dd>
-                    <span>{{post.status}}</span>
-                </dd>
-                <dt><span>Timestamp</span></dt>
-                <dd>
-                    <span>{{post.timestamp}}</span>
-                </dd>
-                <dt><span>User Extra</span></dt>
-                <dd>
-                    <div *ngIf="post.userExtra">
-                        <a [routerLink]="['/user-extra', post.userExtra?.id, 'view']">{{post.userExtra?.id}}</a>
-                    </div>
-                </dd>
-                <dt><span>Tag</span></dt>
-                <dd>
-                    <span *ngFor="let tag of post.tags; let last = last">
-                        <a [routerLink]="['/tag', tag?.id, 'view' ]">{{tag.id}}</a>{{last ? '' : ', '}}
-                    </span>
-                </dd>
-            </dl>
+            <div class="card text-center" style="width: 20rem;">
+                <span style="font-size: 100px"><fa-icon [icon]="'file-signature'"></fa-icon></span>
+                <div class="card-body">
+                    <h5 class="card-title">{{post.tittle}}</h5>
+                    <p class="card-text">{{post.text}}</p>
+                </div>
+                <ul class="list-group list-group-flush text-left">
+                    <li class="list-group-item">
+                        <fa-icon [icon]="'check-square'"></fa-icon>&nbsp;
+                        Estatus: {{post.status}}
+                    </li>
+                    <li class="list-group-item">
+                        <fa-icon [icon]="'calendar-alt'"></fa-icon>&nbsp;
+                        Fecha de creación: {{post.timestamp}}
+                    </li>
+                    <li class="list-group-item">
+                        <fa-icon [icon]="'user'"></fa-icon>&nbsp;
+                        Nombre del creador: <a [routerLink]="['/user-extra', post.userExtra?.id, 'view']">{{ post.userExtra.nickname }}</a>
+                    </li>
+                </ul>
+                <div class="card-body">
+                    <button type="submit"(click)="previousState()" class="btn btn-info btn-sm btn-small">
+                        <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Atras</span>
+                    </button>
+                    <button type="button" [routerLink]="['/post', post.id, 'edit']"  class="btn btn-primary btn-sm btn-small">
+                        <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Editar</span>
+                    </button>
+                </div>
 
-            <button type="submit"
-                    (click)="previousState()"
-                    class="btn btn-info">
-                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Back</span>
-            </button>
-
-            <button type="button"
-                    [routerLink]="['/post', post.id, 'edit']"
-                    class="btn btn-primary">
-                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Edit</span>
-            </button>
+            </div>
         </div>
+    </div>
+    <div class="col-4">
+
     </div>
 </div>

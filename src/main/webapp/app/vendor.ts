@@ -44,7 +44,13 @@ import {
   faCommentDots,
   faAddressCard,
   faTag,
-  faArrowAltCircleLeft
+  faArrowAltCircleLeft,
+  faFileSignature,
+  faCheckSquare,
+  faHashtag,
+  faEquals,
+  faBookmark,
+  faEdit
 } from '@fortawesome/free-solid-svg-icons';
 
 // Adds the SVG icon to the library so you can use it in your page
@@ -87,5 +93,11 @@ library.add(faCommentDots);
 library.add(faAddressCard);
 library.add(faTag);
 library.add(faArrowAltCircleLeft);
+library.add(faFileSignature);
+library.add(faCheckSquare);
+library.add(faHashtag);
+library.add(faEquals);
+library.add(faBookmark);
+library.add(faEdit);
 
 // jhipster-needle-add-element-to-vendor - JHipster will add new menu items here

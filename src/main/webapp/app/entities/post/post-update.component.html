@@ -4,21 +4,27 @@
             <h2 id="jhi-post-heading">Crear o editar un Post</h2>
             <div>
                 <jhi-alert-error></jhi-alert-error>
-                <div class="form-group" [hidden]="!editForm.get('id').value">
-                    <label for="id">ID</label>
+                <label for="id">ID</label>
+                <div class="input-group" [hidden]="!editForm.get('id').value">
+                    <span class="input-group-addon" style="line-height: 2; padding-left:5px; padding-right:5px; background-color: darkgray"><fa-icon [icon]="'hashtag'"></fa-icon></span>
                     <input type="text" class="form-control" id="id" name="id" formControlName="id" readonly />
                 </div>
-                <div class="form-group">
-                    <label class="form-control-label" for="field_tittle">Título</label>
+                <br>
+                <label class="form-control-label" for="field_tittle">Título</label>
+                <div class="input-group">
+                    <span class="input-group-addon" style="line-height: 2; padding-left:5px; padding-right:5px; background-color: darkgray"><fa-icon [icon]="'bookmark'"></fa-icon></span>
                     <input type="text" class="form-control" name="tittle" id="field_tittle" formControlName="tittle" />
                 </div>
-                <div class="form-group">
-                    <label class="form-control-label" for="field_text">Texto</label>
+                <br>
+                <label class="form-control-label" for="field_text">Texto</label>
+                <div class="input-group">
+                    <span class="input-group-addon" style="line-height: 2; padding-left:5px; padding-right:5px; background-color: darkgray"><fa-icon [icon]="'edit'"></fa-icon></span>
                     <input type="text" class="form-control" name="text" id="field_text" formControlName="text" />
                 </div>
-
+                <br>
                 <div class="form-group">
                     <label for="field_tags">Tag</label>
+                    <span class="input-group-addon" style="line-height: 2; padding-left:5px; padding-right:5px; background-color: darkgray"><fa-icon [icon]="'tag'"></fa-icon></span>
                     <select class="form-control" id="field_tags" multiple name="tags" formControlName="tags">
                         <option [ngValue]="getSelected(editForm.get('tags').value, tagOption)" *ngFor="let tagOption of tags; trackBy: trackTagById">{{tagOption.name}}</option>
                     </select>

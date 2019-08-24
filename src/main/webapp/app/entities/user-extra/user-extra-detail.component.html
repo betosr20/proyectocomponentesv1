@@ -2,7 +2,7 @@
     <div class="col-md-12">
         <div class="align-center">
             <div>
-                <img src="http://img.fenixzone.net/i/EZBDv8i.png" name="aboutme" width="140" height="140" border="0" class="img-circle"></a>
+                <span style="font-size: 100px" class="img-circle"><fa-icon [icon]="'user'"></fa-icon></span>
                 <h3 class="media-heading">{{ userExtra.nickname }}</h3>
                 <span><strong>Información: </strong></span>
                     <span class="badge badge-success">
@@ -49,8 +49,12 @@
                                 <div>
                                     <div>
                                         <p>
-                                            <i class="icon-calendar"></i> {{ post.timestamp | date: 'MMMM d, y' }} | <i class="icon-comment"></i>
-                                            <a> Comentarios: {{ post.comments.length }}</a> | <i class="icon-tags"></i> Tags :
+                                            <span><fa-icon [icon]="'calendar-alt'"></fa-icon></span>
+                                            {{ post.timestamp | date: 'MMMM d, y' }} |
+                                            <span><fa-icon [icon]="'comments'"></fa-icon></span>
+                                            <a> Comentarios: {{ post.comments.length }}</a> |
+                                            <br>
+                                            <span><fa-icon [icon]="'tag'"></fa-icon></span> Tags :
                                             <span *ngFor="let tag of post.tags; let last = last" >
                                                 <a [routerLink]="['../../../tag', tag?.id, 'view']" *ngIf="last == 0" class="form-control-static badge badge-success">{{ tag.name}}</a>
                                                 <a [routerLink]="['../../../tag', tag?.id, 'view']" *ngIf="last > 0" class="form-control-static badge badge-warning">{{ tag.name}}</a>
