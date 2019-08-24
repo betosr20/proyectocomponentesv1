@@ -1,10 +1,14 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { Subscription } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
 import { JhiEventManager, JhiAlertService } from 'ng-jhipster';
 import { Observable } from 'rxjs';
 import { IPost, Post } from 'app/shared/model/post.model';
+import { IUserExtra } from 'app/shared/model/user-extra.model';
+import { UserService } from '../../core/user/user.service';
+import { UserExtraService } from '../user-extra/user-extra.service';
 import { AccountService } from 'app/core';
 import { PostService } from './post.service';
 import { FormBuilder } from '@angular/forms';
@@ -17,6 +21,9 @@ import { IComment } from 'app/shared/model/comment.model';
   styleUrls: ['./post.component.scss']
 })
 export class PostComponent implements OnInit, OnDestroy {
+  userExtras: IUserExtra[];
+  userExtra: IUserExtra;
+  account: any;
   posts: IPost[];
   currentAccount: any;
   eventSubscriber: Subscription;
@@ -29,10 +36,13 @@ export class PostComponent implements OnInit, OnDestroy {
   });
   constructor(
     protected postService: PostService,
+    protected activatedRoute: ActivatedRoute,
     protected commentService: CommentService,
+    protected userExtraService: UserExtraService,
     protected jhiAlertService: JhiAlertService,
     protected eventManager: JhiEventManager,
     protected accountService: AccountService,
+    protected userService: UserService,
     private fb: FormBuilder
   ) {}
 
@@ -49,9 +59,29 @@ export class PostComponent implements OnInit, OnDestroy {
         },
         (res: HttpErrorResponse) => this.onError(res.message)
       );
-  }
 
+    /*     this.userExtraService
+      .query()
+      .pipe(
+        filter((res: HttpResponse<IUserExtra[]>) => res.ok),
+        map((res: HttpResponse<IUserExtra[]>) => res.body)
+      )
+      .subscribe(
+        (res: IUserExtra[]) => {
+          this.userExtras = res;
+        },
+        (res: HttpErrorResponse) => this.onError(res.message)
+      ); */
+  }
   ngOnInit() {
+    this.accountService.identity().then(account => {
+      this.account = account;
+    });
+
+    this.activatedRoute.data.subscribe(({ userExtra }) => {
+      this.userExtra = userExtra;
+    });
+
     this.loadAll();
     this.accountService.identity().then(account => {
       this.currentAccount = account;
