@@ -15,91 +15,102 @@
         <span>No posts found</span>
     </div> -->
     <div *ngIf="posts?.length > 0">
-        <div class="container card-columns">
-            <div class="span8 card p-4" *ngFor="let post of posts ;trackBy: trackId">
-                <div class="body">
-                    <div>
-                        <div>
-
-                            <h2><strong class="card-title">{{ post.tittle }}</strong>
-                            </h2>
-                        </div>
-                    </div>
-                    <div>
+        <div class="row">
+            <div class="col-md-4 col-lg-4 col-sm-12 mb-2" *ngFor="let post of posts ;trackBy: trackId"">
+                <div class="span8 card p-4">
+                    <div class="body">
                         <div>
                             <div>
-                                <button *ngIf="account.id  ==  post.userExtra.userId" type="submit" [routerLink]="['/post', post.id, 'view' ]" class="btn btn-info btn-sm">
-                                    <fa-icon [icon]="'eye'"></fa-icon>
-                                    <span class="d-none d-md-inline">Ver</span>
-                                </button>
-                                <button  *ngIf="account.id  ==  post.userExtra.userId" type="submit" [routerLink]="['/post', post.id, 'edit']" class="btn btn-primary btn-sm">
-                                        <fa-icon [icon]="'pencil-alt'"></fa-icon>
-                                        <span class="d-none d-md-inline">Editar</span>
+                                <h2>
+                                    <strong class="card-title">{{ post.tittle }}</strong>
+                                </h2>
+                            </div>
+                        </div>
+                        <div>
+                            <div>
+                                <div>
+                                    <button *ngIf="account.id  ==  post.userExtra.userId" type="submit" [routerLink]="['/post', post.id, 'view' ]" class="btn btn-info btn-sm">
+                                        <fa-icon [icon]="'eye'"></fa-icon>
+                                        <span class="d-none d-md-inline">Ver</span>
                                     </button>
-                                <button  *ngIf="account.id  ==  post.userExtra.userId" type="submit" [routerLink]="['/', 'post', { outlets: { popup: post.id + '/delete'} }]" replaceUrl="true" queryParamsHandling="merge" class="btn btn-danger btn-sm">
-                                    <fa-icon [icon]="'times'"></fa-icon>
-                                    <span class="d-none d-md-inline">Borrar</span>
-                                </button>
+                                    <button  *ngIf="account.id  ==  post.userExtra.userId" type="submit" [routerLink]="['/post', post.id, 'edit']" class="btn btn-primary btn-sm">
+                                            <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                                            <span class="d-none d-md-inline">Editar</span>
+                                        </button>
+                                    <button  *ngIf="account.id  ==  post.userExtra.userId" type="submit" [routerLink]="['/', 'post', { outlets: { popup: post.id + '/delete'} }]" replaceUrl="true" queryParamsHandling="merge" class="btn btn-danger btn-sm">
+                                        <fa-icon [icon]="'times'"></fa-icon>
+                                        <span class="d-none d-md-inline">Borrar</span>
+                                    </button>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div>
-
                         <div>
                             <div>
+                                <div>
 
-                                <p class="text-justify">
-                                    <h6>{{ post.text }}</h6>
-                                </p>
+                                    <p class="text-justify">
+                                        <h6>{{ post.text }}</h6>
+                                    </p>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div>
                         <div>
-                            <p>
-                                <i class="icon-user"></i> by <a [routerLink]="['../user-extra', post.userExtra?.id, 'view' ]">{{post.userExtra?.nickname}}</a> | <i class="icon-calendar"></i> {{ post.timestamp | date: 'MMMM d, y' }} | <i class="icon-comment"></i>                                <a>{{ post.comments.length }}  Comentarios</a> | <i class="icon-tags"></i> Tags :
-                                <span *ngFor="let tag of post.tags; let last = last">
+                            <div>
+                                <p>
+                                    <span><fa-icon [icon]="'user'"></fa-icon></span> by
+                                    <a [routerLink]="['../user-extra', post.userExtra?.id, 'view' ]">{{ post.userExtra?.nickname }} </a>|
+                                    <span><fa-icon [icon]="'calendar-alt'"></fa-icon></span>
+                                    {{ post.timestamp | date: 'MMMM d, y' }} |
+                                    <span><fa-icon [icon]="'comments'"></fa-icon></span>
+                                     <a>{{ post.comments.length }}</a> |
+                                     <span><fa-icon [icon]="'tag'"></fa-icon></span> Tags :
+                                    <span *ngFor="let tag of post.tags; let last = last">
                                         <a class="form-control-static" [routerLink]="['../tag', tag?.id, 'view' ]">{{ tag.name}}</a>{{last ? '' : ', '}}
                                     </span>
-                            </p>
+                                </p>
 
-                        </div>
-                    </div>
-                    <h4><strong><a >Comentarios</a></strong></h4>
-                    <div class="span8" *ngFor="let comment of post.comments">
-                        <span> {{comment.comment}}</span>
-                        <br>
-                        <br>
-                    </div>
-                    <div class="col-sm">
-                        <form name="editForm" role="form" novalidate (ngSubmit)="saveComment(post)" [formGroup]="editForm">
-                            <h2 id="jhi-comment-heading">Crear comentario</h2>
-                            <div>
-                                <jhi-alert-error></jhi-alert-error>
-                                <div class="form-group" [hidden]="!editForm.get('id').value">
-                                    <label for="id">ID</label>
-                                    <input type="text" class="form-control" id="id" name="id" formControlName="id" readonly />
-                                </div>
-                                <div class="form-group">
-                                    <label class="form-control-label" for="field_comment">Comentario</label>
-                                    <input type="text" class="form-control col-sm-5" name="comment" id="field_comment" formControlName="comment" />
-                                </div>
-                                <div class="form-group">
-                                    <input type="hidden" class="form-control" name="timestamp" id="field_timestamp" formControlName="timestamp" />
-                                    <input type="hidden" name="id" value="{{  post.id }}">
-                                </div>
                             </div>
-                            <div>
-                                <button type="submit" id="save-entity" [disabled]="editForm.invalid || isSaving" class="btn btn-primary">
-                                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Guardar</span>
+                        </div>
+                        <div class="detailBox col-md-12">
+                            <div class="titleBox">
+                                <label>Comentarios sobre el post</label>
+                                <button type="button" class="close" aria-hidden="true">
+                                    <fa-icon [icon]="'comments'"></fa-icon>
                                 </button>
                             </div>
-                        </form>
+                            <div class="commentBox">
+
+                                <p class="taskDescription">Estos son los comentarios que han realizado los usuarios sobre este post</p>
+                            </div>
+                            <div class="actionBox">
+                                <ul class="commentList">
+                                    <li *ngFor="let comment of post.comments">
+                                        <div class="commenterImage">
+                                            <fa-icon [icon]="'comment-dots'"></fa-icon>
+                                        </div>
+                                        <div class="commentText">
+                                            <p class="">{{ comment.comment }}</p>
+                                            <address class="date sub-text">Por: {{ comment.post.userExtra.nickname }}</address>
+                                        </div>
+                                    </li>
+                                </ul>
+                                <form name="editForm" class="form-inline " role="form" novalidate (ngSubmit)="saveComment(post)" [formGroup]="editForm">
+                                    <div class="form-group div-group">
+                                        <input type="hidden" class="form-control" id="id" name="id" formControlName="id" readonly />
+                                        <input class="form-control input-comment" type="text" placeholder="Comentar aquí" name="comment" id="field_comment" formControlName="comment"/>
+                                        <input type="hidden" name="id" value="{{  post.id }}">
+                                        <input type="hidden" class="form-control" name="timestamp" id="field_timestamp" formControlName="timestamp" />
+                                        <button type="submit" id="save-entity"  [disabled]="editForm.invalid || isSaving" class="btn btn-small btn-send">
+                                            <fa-icon [icon]="'arrow-alt-circle-left'"></fa-icon>
+                                            <span>enviar</span>
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-
-
         </div>
         <hr>
     </div>
