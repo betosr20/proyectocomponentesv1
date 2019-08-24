@@ -5,31 +5,31 @@
                 <span style="font-size: 100px" class="img-circle"><fa-icon [icon]="'user'"></fa-icon></span>
                 <h3 class="media-heading">{{ userExtra.nickname }}</h3>
                 <span><strong>Información: </strong></span>
-                    <span class="badge badge-success">
+                <span class="badge badge-success">
                         Id extra: {{ userExtra.id }}
                     </span>
-                    <span class="badge badge-secondary">
+                <span class="badge badge-secondary">
                         Id usuario Jhipster : {{ userJhipster.id }}
                     </span>
-                    <span  *ngIf="userJhipster.firstName != null"  class="badge badge-dark">
+                <span *ngIf="userJhipster.firstName != null" class="badge badge-dark">
                         Nombre de usuario : {{ userJhipster.firstName }} {{ userJhipster.lastName }}
                     </span>
-                    <span *ngIf="userExtra.status == 1" class="badge badge-warning">
+                <span *ngIf="userExtra.status == 1" class="badge badge-warning">
                         Estado: Activo
                     </span>
-                    <span class="badge badge-info">
+                <span class="badge badge-info">
                         Total Post:{{ posts.length }}
                     </span>
-                    <span class="badge badge-success">
+                <span class="badge badge-success">
                         Email: {{ userJhipster.email }}
                     </span>
             </div>
-                <hr>
+            <hr>
             <div>
                 <div *ngIf="posts?.length > 0">
 
                     <div class="container card-columns">
-                        <div class="span12 card p-4" *ngFor="let post of posts ;trackBy: trackId">
+                        <div class="span12 card p-4" *ngFor="let post of posts ;trackBy: id">
                             <div class="body">
                                 <div>
                                     <div>
@@ -49,13 +49,12 @@
                                 <div>
                                     <div>
                                         <p>
-                                            <span><fa-icon [icon]="'calendar-alt'"></fa-icon></span>
-                                            {{ post.timestamp | date: 'MMMM d, y' }} |
+                                            <span><fa-icon [icon]="'calendar-alt'"></fa-icon></span> {{ post.timestamp | date: 'MMMM d, y' }} |
                                             <span><fa-icon [icon]="'comments'"></fa-icon></span>
                                             <a> Comentarios: {{ post.comments.length }}</a> |
                                             <br>
                                             <span><fa-icon [icon]="'tag'"></fa-icon></span> Tags :
-                                            <span *ngFor="let tag of post.tags; let last = last" >
+                                            <span *ngFor="let tag of post.tags; let last = last">
                                                 <a [routerLink]="['../../../tag', tag?.id, 'view']" *ngIf="last == 0" class="form-control-static badge badge-success">{{ tag.name}}</a>
                                                 <a [routerLink]="['../../../tag', tag?.id, 'view']" *ngIf="last > 0" class="form-control-static badge badge-warning">{{ tag.name}}</a>
                                                 <a [routerLink]="['../../../tag', tag?.id, 'view']" *ngIf="last > 1" class="form-control-static badge badge-info">{{ tag.name}}</a>
@@ -88,15 +87,11 @@
                     </div>
                     <div class="row">
                         <div class="col-md-12 col-lg-12">
-                            <button type="submit"
-                                    (click)="previousState()"
-                                    class="btn btn-info">
+                            <button type="submit" (click)="previousState()" class="btn btn-info">
                                 <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Back</span>
                             </button>
 
-                            <button type="button"
-                                    [routerLink]="['/user-extra', userExtra.id, 'edit']"
-                                    class="btn btn-primary">
+                            <button type="button" [routerLink]="['/user-extra', userExtra.id, 'edit']" class="btn btn-primary">
                                 <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Edit</span>
                             </button>
                         </div>
